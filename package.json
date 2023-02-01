@@ -1,7 +1,6 @@
 {
   "name": "dnlwllms-labs",
-  "version": "0.1.0",
-  "dependencies": {},
+  "version": "0.0.0",
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
