@@ -1,8 +1,16 @@
-import { NumberUtility, ObjectUtility, StringUtility } from "../packages/util";
+import {
+  DateUtility,
+  NumberUtility,
+  ObjectUtility,
+  StringUtility,
+} from "../packages/util";
+import { TestUtility } from "../packages/util/TestUtility";
+import { UtilError } from "../packages/util/UtilError";
 
 const { arrangeRandoms, getRandomNumber } = NumberUtility;
 const { getRandomWord } = StringUtility;
 const { getRandomObject } = ObjectUtility;
+const { getRandomDate } = DateUtility;
 
 describe("랜덤 숫자 가져오기", () => {
   const testActionWithoutParams = () => {
@@ -39,9 +47,9 @@ describe("랜덤 숫자 가져오기 2", () => {
   });
 
   it("100번 시도 성공 여부", () => {
-    for (let i = 0; i < 100; i++) {
+    TestUtility.call(100, () => {
       testAction(getRandomNumber(0, 6) << 0);
-    }
+    });
   });
 });
 
@@ -128,5 +136,53 @@ describe("랜덤 객체 생성하기", () => {
         )
       ).toEqual(true);
     }
+  });
+});
+
+describe("랜덤 날짜 생성하기", () => {
+  it("날짜 범위 잘못 입력했을 때 확인하기", () => {
+    expect(() => getRandomDate([new Date(), new Date("2021-01-01")])).toThrow(
+      UtilError
+    );
+  });
+
+  it("날짜 생성 - 같은 날인 경우", () => {
+    TestUtility.call(100, () => {
+      const startDate = new Date("2021-01-01T00:00:00");
+      const endDate = new Date("2021-01-01T23:59:59");
+      const randomDate = getRandomDate([startDate, endDate]);
+
+      expect(randomDate >= startDate && randomDate <= endDate).toBe(true);
+    });
+  });
+
+  it("날짜 생성 - 같은 달인 경우", () => {
+    TestUtility.call(100, () => {
+      const startDate = new Date("2021-01-01");
+      const endDate = new Date("2021-01-31");
+      const randomDate = getRandomDate([startDate, endDate]);
+
+      expect(randomDate >= startDate && randomDate <= endDate).toBe(true);
+    });
+  });
+
+  it("날짜 생성 - 같은 해인 경우", () => {
+    TestUtility.call(100, () => {
+      const startDate = new Date("2021-01-01");
+      const endDate = new Date("2021-12-31");
+      const randomDate = getRandomDate([startDate, endDate]);
+
+      expect(randomDate >= startDate && randomDate <= endDate).toBe(true);
+    });
+  });
+
+  it("날짜 생성 - 연도만 다를 경우", () => {
+    TestUtility.call(100, () => {
+      const startDate = new Date("2021-01-01");
+      const endDate = new Date("2022-01-01");
+      const randomDate = getRandomDate([startDate, endDate]);
+
+      expect(randomDate >= startDate && randomDate <= endDate).toBe(true);
+    });
   });
 });
