@@ -1,9 +1,6 @@
 {
-  "name": "dnlwllms-unit",
+  "name": "dnlwllms-labs",
   "version": "0.1.0",
-  "private": true,
-  "main": "./dist/index.js",
-  "type": "module",
   "dependencies": {},
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
@@ -24,8 +21,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "eject": "react-scripts eject",
     "cypress": "cypress open",
-    "eject": "react-scripts eject"
+    "build:util": "cd src/packages/util && tsc && cp package.json ../../../dist",
+    "publish:util": "cd dist && npm publish"
   },
   "eslintConfig": {
     "extends": [
