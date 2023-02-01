@@ -2,6 +2,8 @@ import React from "react";
 
 interface FormProps {}
 
-export const Form: React.FC<FormProps> = () => {
-  return <form></form>;
+const Form: React.FC<FormProps> = () => {
+  return <form>test</form>;
 };
+
+export default Form;
