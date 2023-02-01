@@ -1,6 +1,7 @@
 {
   "name": "dnlwllms-labs",
   "version": "0.0.0",
+  "license": "MIT",
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -23,7 +24,9 @@
     "eject": "react-scripts eject",
     "cypress": "cypress open",
     "build:util": "cd packages/util && tsc && cp package.json dist",
-    "publish:util": "cd packages/util/dist && npm publish"
+    "publish:util": "cd packages/util/dist && npm publish",
+    "build:form": "cd packages/form && tsc && cp package.json dist",
+    "publish:form": "cd packages/form/dist && npm publish"
   },
   "eslintConfig": {
     "extends": [
