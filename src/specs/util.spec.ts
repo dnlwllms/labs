@@ -1,6 +1,4 @@
-import { NumberUtility } from "../package/NumberUtility";
-import { ObjectUtility } from "../package/ObjectUtility";
-import { StringUtility } from "../package/StringUtility";
+import { NumberUtility, ObjectUtility, StringUtility } from "../packages/util";
 
 const { arrangeRandoms, getRandomNumber } = NumberUtility;
 const { getRandomWord } = StringUtility;
