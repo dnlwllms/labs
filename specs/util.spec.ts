@@ -3,9 +3,9 @@ import {
   NumberUtility,
   ObjectUtility,
   StringUtility,
-} from "../../packages/util";
-import { TestUtility } from "../../packages/util/TestUtility";
-import { UtilError } from "../../packages/util/UtilError";
+} from "../packages/util";
+import { TestUtility } from "../packages/util/TestUtility";
+import { UtilError } from "../packages/util/UtilError";
 
 const { arrangeRandoms, getRandomNumber } = NumberUtility;
 const { getRandomWord } = StringUtility;
