@@ -83,7 +83,6 @@ export const useForm = <T extends Record<string, unknown>>({
 };
 
 interface InternalForm {
-  Item: FC<ItemProps>;
   Input: FC<InputProps>;
 }
 
@@ -114,14 +113,6 @@ const Form: FC<FormProps> & InternalForm = ({
 
 export default Form;
 
-interface ItemProps extends PropsWithChildren {
-  label: string;
-}
-
-const Item: FC<ItemProps> = ({ children }) => {
-  return <div>{children}</div>;
-};
-
 interface InputProps extends HTMLAttributes<HTMLInputElement> {
   as?: ReactElement;
   fieldKey: string;
@@ -151,5 +142,4 @@ const Input: FC<InputProps> = ({ as, fieldKey, ...props }) => {
   );
 };
 
-Form.Item = Item;
 Form.Input = Input;
