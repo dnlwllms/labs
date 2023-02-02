@@ -23,9 +23,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "cypress": "cypress open",
-    "build:util": "cd src/packages/util && tsc && cp package.json dist",
+    "build:util": "cd src/packages/util && rm -rf dist && tsc && cp package.json dist",
     "publish:util": "cd src/packages/util/dist && npm publish",
-    "build:form": "cd src/packages/form && tsc && cp package.json dist",
+    "build:form": "cd src/packages/form && rm -rf dist && tsc && cp package.json dist",
     "publish:form": "cd src/packages/form/dist && npm publish"
   },
   "eslintConfig": {
