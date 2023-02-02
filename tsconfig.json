@@ -16,5 +16,6 @@
     "isolatedModules": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "specs", "cypress"]
+  "include": ["src"],
+  "exclude": ["src/packages"]
 }
