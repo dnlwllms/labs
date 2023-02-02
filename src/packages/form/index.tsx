@@ -30,11 +30,13 @@ type UseFormReturn<T = Record<string, unknown>> = {
   handleValue: (key: keyof T, value: unknown) => void;
 };
 
-const FormContext = createContext<UseFormReturn>({
+const formContextDefaultValue = {
   values: {},
   errors: {},
   handleValue: console.debug,
-});
+};
+
+const FormContext = createContext<UseFormReturn>(formContextDefaultValue);
 
 export const useForm = <T extends Record<string, unknown>>({
   initialValues,
@@ -60,7 +62,6 @@ export const useForm = <T extends Record<string, unknown>>({
           newErrors[key] = [message];
         }
       });
-      console.log(newErrors);
 
       setErrors(newErrors);
     }
@@ -90,12 +91,16 @@ interface FormProps extends PropsWithChildren {
   onSubmit?: (values: any) => void;
 }
 
-const Form: FC<FormProps> & InternalForm = ({ children, form, onSubmit }) => {
+const Form: FC<FormProps> & InternalForm = ({
+  children,
+  form = formContextDefaultValue,
+  onSubmit,
+}) => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
     if (onSubmit) {
-      onSubmit({});
+      onSubmit(form.values);
     }
   };
 
