@@ -87,7 +87,7 @@ interface InternalForm {
 }
 
 interface FormProps extends PropsWithChildren {
-  form: UseFormReturn;
+  form?: UseFormReturn;
   onSubmit?: (values: any) => void;
 }
 
