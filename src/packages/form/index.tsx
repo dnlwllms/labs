@@ -9,6 +9,7 @@ import {
   useEffect,
   cloneElement,
   useContext,
+  HTMLAttributes,
 } from "react";
 
 type FormValidation<T> = Array<{
@@ -121,12 +122,12 @@ const Item: FC<ItemProps> = ({ children }) => {
   return <div>{children}</div>;
 };
 
-interface InputProps {
+interface InputProps extends HTMLAttributes<HTMLInputElement> {
   as?: ReactElement;
   fieldKey: string;
 }
 
-const Input: FC<InputProps> = ({ as, fieldKey }) => {
+const Input: FC<InputProps> = ({ as, fieldKey, ...props }) => {
   const { values, handleValue } = useContext(FormContext);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -137,10 +138,17 @@ const Input: FC<InputProps> = ({ as, fieldKey }) => {
     return cloneElement(as, {
       value: String(values.name),
       onChange: handleChange,
+      ...props,
     });
   }
 
-  return <input value={String(values[fieldKey])} onChange={handleChange} />;
+  return (
+    <input
+      value={String(values[fieldKey])}
+      onChange={handleChange}
+      {...props}
+    />
+  );
 };
 
 Form.Item = Item;
