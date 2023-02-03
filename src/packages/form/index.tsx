@@ -1,4 +1,4 @@
-import {
+import React, {
   createContext,
   FC,
   ChangeEvent,
@@ -12,6 +12,7 @@ import {
   InputHTMLAttributes,
 } from "react";
 
+// <-- Type Area -->
 type FormValidation<T> = Array<{
   key: keyof T;
   regExp: RegExp;
@@ -36,6 +37,18 @@ type UseFormReturn<T = Record<string, unknown>> = {
   handleValue: (key: keyof T, value: unknown) => void;
 };
 
+type InternalForm = {
+  Input: FC<InputProps>;
+  Item: FC<ItemProps> & InternalFormItem;
+};
+
+type InternalFormItem = {
+  Input: FC<InputProps>;
+  ErrorMessage: FC<ErrorMessageProps>;
+};
+// <!-- Type Area -->
+
+// <-- Context Area -->
 const formContextDefaultValue = {
   values: {},
   errors: {},
@@ -46,7 +59,17 @@ const formContextDefaultValue = {
 
 const FormContext = createContext<UseFormReturn>(formContextDefaultValue);
 
-export const useForm = <T extends Record<string, unknown>>({
+const formItemContextDefaultValue = {
+  fieldKey: "",
+  isFocused: false,
+  handleFocused: console.debug,
+};
+
+const FormItemContext = createContext(formItemContextDefaultValue);
+// <!-- Context Area -->
+
+// <-- Hook Area -->
+const useForm = <T extends Record<string, unknown>>({
   initialValues,
   validation,
 }: UseFormParams<T>): UseFormReturn<T> => {
@@ -107,11 +130,9 @@ export const useForm = <T extends Record<string, unknown>>({
     handleValue,
   };
 };
+// <!-- Hook Area -->
 
-interface InternalForm {
-  Input: FC<InputProps>;
-}
-
+// <-- Component Area -->
 interface FormProps extends PropsWithChildren {
   form?: UseFormReturn;
   onSubmit?: (values: any) => void;
@@ -133,25 +154,33 @@ const Form: FC<FormProps> & InternalForm = ({
     </FormContext.Provider>
   );
 };
+// <!-- Component Area -->
 
-export default Form;
-
+// <-- Internal Component Area -->
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   as?: ReactElement;
-  fieldKey: string;
+  fieldKey?: string;
 }
 
-const Input: FC<InputProps> = ({ as, fieldKey, ...props }) => {
+const Input: FC<InputProps> = ({ as, fieldKey: propsFieldKey, ...props }) => {
   const { values, handleValue } = useContext(FormContext);
+  const { fieldKey: contextFieldKey, handleFocused } =
+    useContext(FormItemContext);
+
+  const fieldKey = propsFieldKey || contextFieldKey;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    handleValue(fieldKey, e.target.value);
+    if (fieldKey) {
+      handleValue(fieldKey, e.target.value);
+    }
   };
 
   if (as) {
     return cloneElement(as, {
       value: String(values.name),
       onChange: handleChange,
+      onBlur: handleFocused,
+      autoComplete: props.autoComplete || props.type,
       ...props,
     });
   }
@@ -160,12 +189,71 @@ const Input: FC<InputProps> = ({ as, fieldKey, ...props }) => {
     <input
       value={String(values[fieldKey])}
       onChange={handleChange}
+      onBlur={handleFocused}
+      autoComplete={props.autoComplete || props.type}
       {...props}
     />
   );
 };
 
+interface ItemProps extends PropsWithChildren {
+  fieldKey: string;
+  as?: ReactElement;
+}
+
+const Item: FC<ItemProps> & InternalFormItem = ({ children, fieldKey, as }) => {
+  const [isFocused, setIsFocused] = useState(false);
+
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
+  return (
+    <FormItemContext.Provider
+      value={{ fieldKey, isFocused: isFocused, handleFocused: handleFocus }}
+    >
+      {as ? cloneElement(as, { children }) : children}
+    </FormItemContext.Provider>
+  );
+};
+
+interface ErrorMessageProps {
+  as?: ReactElement;
+  visible?: boolean;
+}
+
+const ErrorMessage: FC<ErrorMessageProps> = ({ as, visible }) => {
+  const form = useContext(FormContext);
+  const { fieldKey, isFocused } = useContext(FormItemContext);
+
+  const defaultVisible = !!(
+    form.isSubmited ||
+    form.values[fieldKey] ||
+    isFocused
+  );
+
+  const message =
+    (visible === undefined ? defaultVisible : visible) &&
+    form.errors[fieldKey]?.[0];
+
+  if (as) {
+    return cloneElement(as, { children: message });
+  }
+
+  return <React.Fragment>{message}</React.Fragment>;
+};
+
+Item.Input = Input;
+Item.ErrorMessage = ErrorMessage;
+
+// <!-- Internal Component Area -->
+
 Form.Input = Input;
+
+Form.Item = Item;
+
+export { useForm };
+export default Form;
 
 export const regExpExample = {
   /**

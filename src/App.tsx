@@ -49,24 +49,25 @@ function App() {
     form.handleValue("tel", getTelNumber(e.target.value));
   };
 
-  console.log(form.values, form.errors);
-
   return (
     <div className="App">
       <Form form={form} onSubmit={console.log}>
-        <Form.Input fieldKey="id" />
-        {!!(form.isSubmited || form.values.id) && form.errors.id?.[0]}
-        <Form.Input autoComplete="name" fieldKey="name" />
-        {!!(form.isSubmited || form.values.name) && form.errors.name?.[0]}
-        <Form.Input autoComplete="email" type="email" fieldKey="email" />
-        {!!(form.isSubmited || form.values.email) && form.errors.email?.[0]}
-        <Form.Input
-          autoComplete="tel"
-          type="tel"
-          fieldKey="tel"
-          onChange={handleTelChange}
-        />
-        {!!(form.isSubmited || form.values.tel) && form.errors.tel?.[0]}
+        <Form.Item fieldKey="id">
+          <Form.Item.Input />
+          <Form.Item.ErrorMessage />
+        </Form.Item>
+        <Form.Item fieldKey="name">
+          <Form.Item.Input type="name" />
+          <Form.Item.ErrorMessage />
+        </Form.Item>
+        <Form.Item fieldKey="email">
+          <Form.Item.Input type="email" />
+          <Form.Item.ErrorMessage />
+        </Form.Item>
+        <Form.Item fieldKey="tel">
+          <Form.Item.Input type="tel" onChange={handleTelChange} />
+          <Form.Item.ErrorMessage />
+        </Form.Item>
         <button>submit</button>
       </Form>
     </div>
