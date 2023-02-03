@@ -9,7 +9,7 @@ import {
   useEffect,
   cloneElement,
   useContext,
-  HTMLAttributes,
+  InputHTMLAttributes,
 } from "react";
 
 type FormValidation<T> = Array<{
@@ -18,22 +18,29 @@ type FormValidation<T> = Array<{
   message: string;
 }>;
 
+type UseFormOptions = {};
+
 type FormError<T> = Partial<Record<keyof T, string[]>>;
 
 type UseFormParams<T> = {
   initialValues: T;
   validation?: FormValidation<T>;
+  options?: UseFormOptions;
 };
 
 type UseFormReturn<T = Record<string, unknown>> = {
   values: T;
   errors: FormError<T>;
+  isSubmited: boolean;
+  handleSubmit: (onSubmit: (values: T) => void) => void;
   handleValue: (key: keyof T, value: unknown) => void;
 };
 
 const formContextDefaultValue = {
   values: {},
   errors: {},
+  isSubmited: false,
+  handleSubmit: console.debug,
   handleValue: console.debug,
 };
 
@@ -48,6 +55,10 @@ export const useForm = <T extends Record<string, unknown>>({
 
   const [validationState] = useState(validation);
 
+  // Submit 시도 했는지 여부 (mount시 error on/off 핸들링과 같은 경우 사용)
+  const [isSubmited, setIsSubmited] = useState(false);
+
+  // Validation Effect
   useEffect(() => {
     if (validationState) {
       const invalidItems = validationState.filter((item) => {
@@ -68,6 +79,19 @@ export const useForm = <T extends Record<string, unknown>>({
     }
   }, [validationState, values]);
 
+  const handleSubmit = (onSubmit: (values: T) => void) => {
+    setIsSubmited(true);
+
+    if (Object.values(errors).length) {
+      return;
+    }
+
+    if (onSubmit) {
+      // 유효하지 않을 경우 submit 차단
+      onSubmit(values);
+    }
+  };
+
   const handleValue = (key: keyof T, value: unknown) => {
     setValues({
       ...values,
@@ -78,6 +102,8 @@ export const useForm = <T extends Record<string, unknown>>({
   return {
     values,
     errors,
+    isSubmited,
+    handleSubmit,
     handleValue,
   };
 };
@@ -98,10 +124,7 @@ const Form: FC<FormProps> & InternalForm = ({
 }) => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-
-    if (onSubmit) {
-      onSubmit(form.values);
-    }
+    form.handleSubmit(onSubmit);
   };
 
   return (
@@ -113,7 +136,7 @@ const Form: FC<FormProps> & InternalForm = ({
 
 export default Form;
 
-interface InputProps extends HTMLAttributes<HTMLInputElement> {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   as?: ReactElement;
   fieldKey: string;
 }
