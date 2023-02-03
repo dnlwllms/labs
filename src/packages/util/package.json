@@ -1,7 +1,7 @@
 {
   "name": "dnlwllms-util",
-  "version": "1.1.1",
-  "description": "랜덤 날짜 생성 유틸함수 추가",
+  "version": "1.2.0",
+  "description": "유틸 함수 패키지",
   "main": "index.js",
   "author": "Daniel",
   "license": "MIT"
