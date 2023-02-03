@@ -44,42 +44,42 @@ export namespace NumberUtility {
 
     return Number(random.toFixed(fixed));
   }
-}
 
-/**
- * @param inputString 입력되는 값
- *
- * @return 전화번호 형태에 맞게 String 반환
- */
-export function getTelNumber(inputString: string) {
-  let withoutHypen = inputString.replaceAll("-", "");
+  /**
+   * @param inputString 입력되는 값
+   *
+   * @return 전화번호 형태에 맞게 String 반환
+   */
+  export function getTelNumber(inputString: string) {
+    let withoutHypen = inputString.replaceAll("-", "");
 
-  if (Number.isNaN(Number(withoutHypen))) {
-    return "";
-  }
+    if (Number.isNaN(Number(withoutHypen))) {
+      return "";
+    }
 
-  if (withoutHypen.length > 11) {
-    withoutHypen = withoutHypen.slice(0, 11);
-  }
+    if (withoutHypen.length > 11) {
+      withoutHypen = withoutHypen.slice(0, 11);
+    }
 
-  switch (withoutHypen.length) {
-    case 1:
-    case 2:
-    case 3:
-    case 4:
-      return withoutHypen;
-    case 5:
-    case 6:
-      return withoutHypen.replace(/(\d{2,3})(\d{3})/, "$1-$2");
-    case 7:
-    case 8:
-      return withoutHypen.replace(/(\d{3,4})(\d{4})/, "$1-$2");
-    case 9:
-      return withoutHypen.replace(/(\d{2})(\d{3})(\d{4})/, "$1-$2-$3");
-    case 10:
-    case 11:
-      return withoutHypen.replace(/(\d{3})(\d{3,4})(\d{4})/, "$1-$2-$3");
-    default:
-      return inputString;
+    switch (withoutHypen.length) {
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+        return withoutHypen;
+      case 5:
+      case 6:
+        return withoutHypen.replace(/(\d{2,3})(\d{3})/, "$1-$2");
+      case 7:
+      case 8:
+        return withoutHypen.replace(/(\d{3,4})(\d{4})/, "$1-$2");
+      case 9:
+        return withoutHypen.replace(/(\d{2})(\d{3})(\d{4})/, "$1-$2-$3");
+      case 10:
+      case 11:
+        return withoutHypen.replace(/(\d{3})(\d{3,4})(\d{4})/, "$1-$2-$3");
+      default:
+        return inputString;
+    }
   }
 }

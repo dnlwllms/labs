@@ -1,6 +1,8 @@
 import { ChangeEvent } from "react";
 import Form, { useForm, regExpExample } from "./packages/form";
-import { getTelNumber } from "./packages/util/NumberUtility";
+import { NumberUtility } from "./packages/util";
+
+const { getTelNumber } = NumberUtility;
 
 type TestForm = {
   id: number;
