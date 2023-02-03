@@ -1,8 +1,14 @@
 {
-  "name": "dnlwllms-util",
+  "name": "@dnlwllms/util",
   "version": "1.2.2",
   "description": "유틸 함수 패키지",
   "main": "index.js",
   "author": "Daniel",
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": {
+    "@dnlwllms:registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "url": "https://github.com/dnlwllms/labs.git"
+  }
 }
