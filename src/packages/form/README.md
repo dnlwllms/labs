@@ -17,13 +17,13 @@
 1. Installation
 
 ```bash
-    yarn add dnlwllms-form
+    yarn add @dnlwllms/form
 ```
 
 2. Form
 
 ```typescript
-import Form from "dnlwllms-form";
+import Form from "@dnlwllms/form";
 
 const App: React.FC = () => {
   const handleSubmit = (values: unknown) => {
@@ -40,7 +40,7 @@ const App: React.FC = () => {
 3. Hook
 
 ```typescript
-import Form from "dnlwllms-form";
+import Form from "@dnlwllms/form";
 
 const App: React.FC = () => {
   const form = useForm({
@@ -76,7 +76,7 @@ const App: React.FC = () => {
 4. Internal Input
 
 ```typescript
-import Form from "dnlwllms-form";
+import Form from "@dnlwllms/form";
 
 const App: React.FC = () => {
   const form = useForm({

@@ -26,7 +26,9 @@
     "build:util": "cd src/packages/util && rm -rf dist && tsc && cp package.json dist",
     "publish:util": "cd src/packages/util/dist && npm publish",
     "build:form": "cd src/packages/form && rm -rf dist && tsc && cp package.json dist",
-    "publish:form": "cd src/packages/form/dist && npm publish"
+    "publish:form": "cd src/packages/form/dist && npm publish",
+    "build:dialog": "cd src/packages/dialog && rm -rf dist && tsc && cp package.json dist",
+    "publish:dialog": "cd src/packages/dialog/dist && npm publish"
   },
   "eslintConfig": {
     "extends": [
