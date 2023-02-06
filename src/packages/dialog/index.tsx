@@ -30,7 +30,7 @@ interface DialogProps extends PropsWithChildren {}
 
 const DIALOG_DATA_ATTRIBUTE_NAME = "data-dnlwllms-dialog-id";
 
-let initialId = 0;
+let initialId = 1;
 
 const Dialog: FC<DialogProps> & InternalDialog = ({ children }) => {
   const [id] = useState<number>(initialId++);
