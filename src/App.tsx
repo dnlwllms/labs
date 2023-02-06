@@ -1,5 +1,6 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
 import Form, { useForm, regExpExample } from "./packages/form";
+import Dialog from "./packages/dialog";
 import { NumberUtility } from "./packages/util";
 
 const { getTelNumber } = NumberUtility;
@@ -49,6 +50,8 @@ function App() {
     form.handleValue("tel", getTelNumber(e.target.value));
   };
 
+  const [openKey, setOpenKey] = useState(0);
+
   return (
     <div className="App">
       <Form form={form} onSubmit={console.log}>
@@ -70,6 +73,27 @@ function App() {
         </Form.Item>
         <button>submit</button>
       </Form>
+      {[1, 2].map((key) => {
+        return (
+          <Dialog
+            key={key}
+            open={openKey === key}
+            onClose={() => setOpenKey(0)}
+          >
+            <Dialog.Trigger>
+              <button onClick={() => setOpenKey(key)}>open{key}</button>
+            </Dialog.Trigger>
+            <Dialog.Body>
+              {(rect) => {
+                console.log(rect);
+                return (
+                  <div onClick={(e) => e.stopPropagation()}>하이{key}</div>
+                );
+              }}
+            </Dialog.Body>
+          </Dialog>
+        );
+      })}
     </div>
   );
 }

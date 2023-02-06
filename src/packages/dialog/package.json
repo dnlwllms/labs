@@ -1,7 +1,7 @@
 {
   "name": "@dnlwllms/dialog",
   "version": "0.0.1",
-  "description": "Popup, Modal 등 대화상자 사용자 인터렉션 컴포넌트",
+  "description": "Popup, Select, Modal 등 대화상자 사용자 인터렉션 컴포넌트",
   "main": "index.js",
   "type": "module",
   "keywords": [],
