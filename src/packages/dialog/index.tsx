@@ -19,7 +19,7 @@ type InternalDialog = {
 const dialogContextDefaultValue = {
   id: undefined as number | undefined,
   isOpen: false,
-  triggerRect: new DOMRect(),
+  triggerRect: {} as DOMRect | undefined,
   handleOpen: console.debug,
   handleClose: console.debug,
 };
@@ -36,7 +36,7 @@ const Dialog: FC<DialogProps> & InternalDialog = ({ children }) => {
   const [id] = useState<number>(initialId++);
 
   const [isOpen, setIsOpen] = useState(false);
-  const [triggerRect, setTriggerRect] = useState(new DOMRect());
+  const [triggerRect, setTriggerRect] = useState<DOMRect>();
 
   const handleClose = useCallback(
     (e: MouseEvent) => {
@@ -58,7 +58,7 @@ const Dialog: FC<DialogProps> & InternalDialog = ({ children }) => {
     };
   }, [handleClose, id]);
 
-  const handleOpen = (id: number, e: MouseEvent) => {
+  const handleOpen = (e: MouseEvent) => {
     const target = e.target as HTMLElement;
 
     if (target) {
@@ -67,6 +67,7 @@ const Dialog: FC<DialogProps> & InternalDialog = ({ children }) => {
 
     setIsOpen(!isOpen);
   };
+
   return (
     <DialogContext.Provider
       value={{
@@ -92,7 +93,7 @@ const Trigger: FC<TriggerProps> = ({ children }) => {
   return cloneElement(children, {
     [DIALOG_DATA_ATTRIBUTE_NAME]: id,
     onClick: (e: MouseEvent) => {
-      handleOpen(id, e);
+      handleOpen(e);
 
       if (children.props.onClick) {
         children.props.onClick(e);
@@ -103,7 +104,7 @@ const Trigger: FC<TriggerProps> = ({ children }) => {
 
 interface BodyProps {
   children: (renderProps: {
-    rect: DOMRect;
+    rect?: DOMRect;
     handleClose: () => void;
   }) => ReactElement;
 }
