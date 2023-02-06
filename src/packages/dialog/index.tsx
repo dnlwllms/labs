@@ -17,6 +17,7 @@ type InternalDialog = {
 };
 
 const dialogContextDefaultValue = {
+  id: undefined as number | undefined,
   isOpen: false,
   triggerRect: new DOMRect(),
   handleOpen: console.debug,
@@ -25,28 +26,29 @@ const dialogContextDefaultValue = {
 
 const DialogContext = createContext(dialogContextDefaultValue);
 
-interface DialogProps extends PropsWithChildren {
-  open?: boolean;
-  onClose?: () => void;
-}
+interface DialogProps extends PropsWithChildren {}
 
-const Dialog: FC<DialogProps> & InternalDialog = ({
-  children,
-  open,
-  onClose,
-}) => {
+const DIALOG_DATA_ATTRIBUTE_NAME = "data-dnlwllms-dialog-id";
+
+let initialId = 0;
+
+const Dialog: FC<DialogProps> & InternalDialog = ({ children }) => {
+  const [id] = useState<number>(initialId++);
+
   const [isOpen, setIsOpen] = useState(false);
   const [triggerRect, setTriggerRect] = useState(new DOMRect());
 
   const handleClose = useCallback(
     (e: MouseEvent) => {
-      setIsOpen(false);
+      const target = e.target as HTMLElement;
 
-      if (onClose) {
-        onClose();
+      const dataId = Number(target.getAttribute(DIALOG_DATA_ATTRIBUTE_NAME));
+
+      if (id !== dataId) {
+        setIsOpen(false);
       }
     },
-    [onClose]
+    [id]
   );
 
   useEffect(() => {
@@ -54,9 +56,9 @@ const Dialog: FC<DialogProps> & InternalDialog = ({
     return () => {
       window.removeEventListener("click", handleClose);
     };
-  }, [handleClose]);
+  }, [handleClose, id]);
 
-  const handleOpen = (e: MouseEvent) => {
+  const handleOpen = (id: number, e: MouseEvent) => {
     const target = e.target as HTMLElement;
 
     if (target) {
@@ -68,7 +70,8 @@ const Dialog: FC<DialogProps> & InternalDialog = ({
   return (
     <DialogContext.Provider
       value={{
-        isOpen: open === undefined ? isOpen : open,
+        id,
+        isOpen,
         triggerRect,
         handleOpen,
         handleClose,
@@ -84,28 +87,33 @@ interface TriggerProps {
 }
 
 const Trigger: FC<TriggerProps> = ({ children }) => {
-  const { handleOpen } = useContext(DialogContext);
+  const { id, handleOpen } = useContext(DialogContext);
 
   return cloneElement(children, {
+    [DIALOG_DATA_ATTRIBUTE_NAME]: id,
     onClick: (e: MouseEvent) => {
-      e.stopPropagation();
-      handleOpen(e);
+      handleOpen(id, e);
 
       if (children.props.onClick) {
-        children.props.onClick();
+        children.props.onClick(e);
       }
     },
   });
 };
 
 interface BodyProps {
-  children: (rect: DOMRect) => ReactElement;
+  children: (renderProps: {
+    rect: DOMRect;
+    handleClose: () => void;
+  }) => ReactElement;
 }
 
 const Body: FC<BodyProps> = ({ children }) => {
-  const { isOpen, triggerRect } = useContext(DialogContext);
+  const { isOpen, triggerRect, handleClose } = useContext(DialogContext);
 
-  return isOpen ? createPortal(children(triggerRect), document.body) : null;
+  return isOpen
+    ? createPortal(children({ rect: triggerRect, handleClose }), document.body)
+    : null;
 };
 
 Dialog.Trigger = Trigger;
