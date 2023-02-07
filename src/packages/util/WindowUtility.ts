@@ -117,7 +117,6 @@ export namespace WindowUtility {
 
     if (isOverX) {
       const moveDistance = domRect.width + domRect.x - windowSize.innerWidth;
-      console.log("moveDis", moveDistance);
       movedCooridnate.x = domRect.x - moveDistance;
     }
 
