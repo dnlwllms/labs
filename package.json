@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "license": "MIT",
   "devDependencies": {
+    "@dnlwllms/dialog": "^1.1.2",
+    "@dnlwllms/form": "^1.2.3",
+    "@dnlwllms/util": "^1.3.9",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -28,7 +31,8 @@
     "build:form": "cd src/packages/form && rm -rf dist && tsc",
     "publish:form": "cd src/packages/form && npm publish",
     "build:dialog": "cd src/packages/dialog && rm -rf dist && tsc",
-    "publish:dialog": "cd src/packages/dialog && npm publish"
+    "publish:dialog": "cd src/packages/dialog && npm publish",
+    "upgrade:core": "yarn upgrade @dnlwllms/util @dnlwllms/form @dnlwllms/dialog"
   },
   "eslintConfig": {
     "extends": [
