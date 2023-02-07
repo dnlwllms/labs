@@ -41,7 +41,10 @@ const Dialog: FC<DialogProps> & InternalDialog = ({ children }) => {
   const handleClose = useCallback(
     (e: MouseEvent) => {
       const isTarget = e.composedPath().some((target) => {
-        if ((target as HTMLElement)?.getAttribute) {
+        const element = target as HTMLElement;
+        const isElement = !!element.getAttribute;
+
+        if (isElement) {
           return (
             Number(
               (target as HTMLElement).getAttribute(DIALOG_DATA_ATTRIBUTE_NAME)
@@ -66,8 +69,8 @@ const Dialog: FC<DialogProps> & InternalDialog = ({ children }) => {
     };
   }, [handleClose, id]);
 
-  const handleOpen = (e: MouseEvent) => {
-    const target = e.target as HTMLElement;
+  const handleOpen = (e: React.MouseEvent) => {
+    const target = e.currentTarget as HTMLElement;
 
     if (target) {
       setTriggerRect(target.getBoundingClientRect());
