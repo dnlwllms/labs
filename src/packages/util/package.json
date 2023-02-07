@@ -5,6 +5,15 @@
   "files": [
     "dist"
   ],
+  "type": "module",
+  "types": "./dist/@types",
+  "exports": {
+    ".": {
+      "module": {
+        "default": "./dist/index.js"
+      }
+    }
+  },
   "author": "Daniel",
   "license": "MIT",
   "publishConfig": {
