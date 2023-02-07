@@ -83,11 +83,13 @@ function App() {
         </Form.Item>
         <button>submit</button>
       </Form>
-      {[1].map((key) => {
+      {[1, 2].map((key) => {
         return (
           <Dialog key={key}>
             <Dialog.Trigger>
-              <button>open{key}</button>
+              <button>
+                <div>open{key}</div>
+              </button>
             </Dialog.Trigger>
             <Dialog.Body>
               {() => {

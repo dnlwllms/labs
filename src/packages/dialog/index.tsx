@@ -40,11 +40,19 @@ const Dialog: FC<DialogProps> & InternalDialog = ({ children }) => {
 
   const handleClose = useCallback(
     (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
+      const isTarget = e.composedPath().some((target) => {
+        if ((target as HTMLElement)?.getAttribute) {
+          return (
+            Number(
+              (target as HTMLElement).getAttribute(DIALOG_DATA_ATTRIBUTE_NAME)
+            ) === id
+          );
+        } else {
+          return false;
+        }
+      });
 
-      const dataId = Number(target.getAttribute(DIALOG_DATA_ATTRIBUTE_NAME));
-
-      if (id !== dataId) {
+      if (!isTarget) {
         setIsOpen(false);
       }
     },
