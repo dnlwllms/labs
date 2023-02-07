@@ -23,12 +23,12 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "cypress": "cypress open",
-    "build:util": "cd src/packages/util && rm -rf dist && tsc && cp package.json dist",
-    "publish:util": "cd src/packages/util/dist && npm publish",
-    "build:form": "cd src/packages/form && rm -rf dist && tsc && cp package.json dist",
-    "publish:form": "cd src/packages/form/dist && npm publish",
-    "build:dialog": "cd src/packages/dialog && rm -rf dist && tsc && cp package.json dist",
-    "publish:dialog": "cd src/packages/dialog/dist && npm publish"
+    "build:util": "cd src/packages/util && rm -rf dist && tsc",
+    "publish:util": "cd src/packages/util && npm publish",
+    "build:form": "cd src/packages/form && rm -rf dist && tsc",
+    "publish:form": "cd src/packages/form && npm publish",
+    "build:dialog": "cd src/packages/dialog && rm -rf dist && tsc",
+    "publish:dialog": "cd src/packages/dialog && npm publish"
   },
   "eslintConfig": {
     "extends": [

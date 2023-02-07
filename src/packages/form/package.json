@@ -1,8 +1,11 @@
 {
   "name": "@dnlwllms/form",
-  "version": "1.1.4",
+  "version": "1.1.19",
   "description": "데이터 바인딩, 유효성 검사 등 편의 기능을 제공하는 라이트한 React Form Component",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "type": "module",
   "keywords": [],
   "author": "Daniel",

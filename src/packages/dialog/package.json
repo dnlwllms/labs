@@ -1,8 +1,11 @@
 {
   "name": "@dnlwllms/dialog",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Popup, Select, Modal 등 대화상자 사용자 인터렉션 컴포넌트를 만들기 위한 코어 컴포넌트",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "type": "module",
   "keywords": [],
   "author": "Daniel",
