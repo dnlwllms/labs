@@ -1,8 +1,9 @@
 {
   "name": "@dnlwllms/util",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "유틸 함수 패키지",
   "main": "index.js",
+  "type": "module",
   "author": "Daniel",
   "license": "MIT",
   "publishConfig": {
