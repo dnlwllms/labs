@@ -1,8 +1,7 @@
 import { ChangeEvent, useEffect } from "react";
 import Form, { useForm, regExpExample } from "./packages/form";
 import Dialog from "./packages/dialog";
-import { NumberUtility } from "./packages/util";
-import { WindowUtility } from "./packages/util";
+import { NumberUtility, WindowUtility } from "./packages/util";
 
 const { getTelNumber } = NumberUtility;
 const { getIsInViewport: isInViewport } = WindowUtility;

@@ -92,8 +92,8 @@ describe("Window Viewport Test", () => {
         height: rectHeight,
         left: x,
         top: y,
-        right: innerWidth - x + rectWidth,
-        bottom: innerHeight - y + rectHeight,
+        right: innerWidth - x - rectWidth,
+        bottom: innerHeight - y - rectHeight,
         toJSON: () => {},
       };
 
@@ -119,8 +119,8 @@ describe("Window Viewport Test", () => {
         height: rectHeight,
         left: x,
         top: y,
-        right: innerWidth - x + rectWidth,
-        bottom: innerHeight - y + rectHeight,
+        right: innerWidth - x - rectWidth,
+        bottom: innerHeight - y - rectHeight,
         toJSON: () => {},
       };
 
@@ -146,8 +146,8 @@ describe("Window Viewport Test", () => {
         height: rectHeight,
         left: x,
         top: y,
-        right: innerWidth - x + rectWidth,
-        bottom: innerHeight - y + rectHeight,
+        right: innerWidth - x - rectWidth,
+        bottom: innerHeight - y - rectHeight,
         toJSON: () => {},
       };
 
@@ -179,8 +179,8 @@ describe("Window Viewport Test", () => {
         height: rectHeight,
         left: x,
         top: y,
-        right: innerWidth - x + rectWidth,
-        bottom: innerHeight - y + rectHeight,
+        right: innerWidth - x - rectWidth,
+        bottom: innerHeight - y - rectHeight,
         toJSON: () => {},
       };
 

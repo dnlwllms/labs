@@ -111,19 +111,19 @@ export namespace WindowUtility {
     const isOverX = getIsOverX(windowSize.innerWidth, domRect);
     const isOverY = getIsOverY(windowSize.innerHeight, domRect);
 
-    const movedCooridnate: Coordinate = {
-      x: domRect.x,
-      y: domRect.y,
+    const movedCooridnate: DOMRect = {
+      ...domRect,
     };
 
     if (isOverX) {
-      const moveDistance = windowSize.innerWidth - domRect.width + domRect.x;
-      movedCooridnate.x -= moveDistance;
+      const moveDistance = domRect.width + domRect.x - windowSize.innerWidth;
+      console.log("moveDis", moveDistance);
+      movedCooridnate.x = domRect.x - moveDistance;
     }
 
     if (isOverY) {
-      const moveDistance = windowSize.innerHeight - domRect.height + domRect.y;
-      movedCooridnate.y -= moveDistance;
+      const moveDistance = domRect.height + domRect.y - windowSize.innerHeight;
+      movedCooridnate.y = domRect.y - moveDistance;
     }
 
     const movedDomRect: DOMRect = {
@@ -133,8 +133,8 @@ export namespace WindowUtility {
       y: movedCooridnate.y,
       left: movedCooridnate.x,
       top: movedCooridnate.y,
-      right: windowSize.innerWidth - domRect.width + movedCooridnate.x,
-      bottom: windowSize.innerHeight - domRect.height + movedCooridnate.y,
+      right: windowSize.innerWidth - (domRect.width + movedCooridnate.x),
+      bottom: windowSize.innerHeight - (domRect.height + movedCooridnate.y),
       toJSON: () => {},
     };
 
