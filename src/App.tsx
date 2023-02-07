@@ -1,9 +1,11 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useEffect } from "react";
 import Form, { useForm, regExpExample } from "./packages/form";
 import Dialog from "./packages/dialog";
 import { NumberUtility } from "./packages/util";
+import { WindowUtility } from "./packages/util";
 
 const { getTelNumber } = NumberUtility;
+const { getIsInViewport: isInViewport } = WindowUtility;
 
 type TestForm = {
   id: number;
@@ -14,6 +16,16 @@ type TestForm = {
 };
 
 function App() {
+  useEffect(() => {
+    window.addEventListener("click", (e) => {
+      const target = e.target as HTMLElement;
+      const rect = target.getBoundingClientRect();
+      isInViewport(
+        { innerWidth: window.innerWidth, innerHeight: window.innerHeight },
+        rect
+      );
+    });
+  }, []);
   const form = useForm<TestForm>({
     initialValues: {
       id: 0,
@@ -55,19 +67,19 @@ function App() {
       <Form form={form} onSubmit={console.log}>
         <Form.Item fieldKey="id">
           <Form.Item.Input />
-          <Form.Item.ErrorMessage />
+          <Form.Item.ErrorMessage as={<div />} />
         </Form.Item>
         <Form.Item fieldKey="name">
           <Form.Item.Input type="name" />
-          <Form.Item.ErrorMessage />
+          <Form.Item.ErrorMessage as={<div />} />
         </Form.Item>
         <Form.Item fieldKey="email">
           <Form.Item.Input type="email" />
-          <Form.Item.ErrorMessage />
+          <Form.Item.ErrorMessage as={<div />} />
         </Form.Item>
         <Form.Item fieldKey="tel">
           <Form.Item.Input type="tel" onChange={handleTelChange} />
-          <Form.Item.ErrorMessage />
+          <Form.Item.ErrorMessage as={<div />} />
         </Form.Item>
         <button>submit</button>
       </Form>

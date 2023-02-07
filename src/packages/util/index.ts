@@ -3,6 +3,7 @@ import { StringUtility } from "./StringUtility";
 import { ObjectUtility } from "./ObjectUtility";
 import { DateUtility } from "./DateUtility";
 import { TestUtility } from "./TestUtility";
+import { WindowUtility } from "./WindowUtility";
 
 export {
   NumberUtility,
@@ -10,4 +11,5 @@ export {
   ObjectUtility,
   DateUtility,
   TestUtility,
+  WindowUtility,
 };
