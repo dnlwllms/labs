@@ -5,6 +5,7 @@
   "main": "index.js",
   "author": "Daniel",
   "license": "MIT",
+  "type": "module",
   "publishConfig": {
     "@dnlwllms:registry": "https://npm.pkg.github.com"
   },
