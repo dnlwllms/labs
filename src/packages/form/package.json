@@ -1,12 +1,12 @@
 {
   "name": "@dnlwllms/form",
-  "version": "1.2.3",
+  "version": "1.2.9",
   "description": "데이터 바인딩, 유효성 검사 등 편의 기능을 제공하는 라이트한 React Form Component",
   "files": [
     "dist"
   ],
   "type": "module",
-  "types": "./dist/@types",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "module": {

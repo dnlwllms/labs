@@ -1,12 +1,12 @@
 {
   "name": "@dnlwllms/util",
-  "version": "1.3.9",
+  "version": "1.3.10",
   "description": "유틸 함수 패키지",
   "files": [
     "dist"
   ],
   "type": "module",
-  "types": "./dist/@types",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "module": {
