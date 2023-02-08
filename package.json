@@ -26,13 +26,13 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "cypress": "cypress open",
-    "build:util": "cd src/packages/util && rm -rf dist && tsc -p tsconfig-esm.json && tsc -p tsconfig-cjs.json",
+    "build:util": "cd src/packages/util && rm -rf dist && tsc && tsc -p tsconfig-cjs.json",
     "publish:util": "cd src/packages/util && npm publish",
-    "build:form": "cd src/packages/form && rm -rf dist && tsc -p tsconfig-esm.json && tsc -p tsconfig-cjs.json",
+    "build:form": "cd src/packages/form && rm -rf dist && tsc && tsc -p tsconfig-cjs.json",
     "publish:form": "cd src/packages/form && npm publish",
-    "build:dialog": "cd src/packages/dialog && rm -rf dist && tsc -p tsconfig-esm.json && tsc -p tsconfig-cjs.json",
+    "build:dialog": "cd src/packages/dialog && rm -rf dist && tsc && tsc -p tsconfig-cjs.json",
     "publish:dialog": "cd src/packages/dialog && npm publish",
-    "build:table": "cd src/packages/table && rm -rf dist && tsc -p tsconfig-esm.json && tsc -p tsconfig-cjs.json",
+    "build:table": "cd src/packages/table && rm -rf dist && tsc && tsc -p tsconfig-cjs.json",
     "publish:table": "cd src/packages/table && npm publish"
   },
   "eslintConfig": {
