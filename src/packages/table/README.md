@@ -1,6 +1,6 @@
-# Dialog
+# Table
 
-> Popup, Modal 등 대화상자 사용자 인터렉션 컴포넌트
+> Table 컴포넌트
 
 ---
 
@@ -13,5 +13,5 @@
 1. Installation
 
 ```bash
-    yarn add @dnlwllms/dialog
+    yarn add @dnlwllms/table
 ```
