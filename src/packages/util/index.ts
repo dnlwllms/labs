@@ -4,6 +4,7 @@ import { ObjectUtility } from "./ObjectUtility";
 import { DateUtility } from "./DateUtility";
 import { TestUtility } from "./TestUtility";
 import { WindowUtility } from "./WindowUtility";
+import { UtilError } from "./UtilError";
 
 export {
   NumberUtility,
@@ -12,4 +13,5 @@ export {
   DateUtility,
   TestUtility,
   WindowUtility,
+  UtilError,
 };

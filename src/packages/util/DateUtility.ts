@@ -14,10 +14,7 @@ export namespace DateUtility {
     return num.toString();
   }
   export function getRandomDate(
-    dateRange: [Date, Date] = [
-      new Date("2020-01-01T00:00:00"),
-      new Date("2023-12-31T23:59:59"),
-    ]
+    dateRange: [Date, Date] = [new Date("2020-01-01"), new Date("2023-12-31")]
   ) {
     if (dateRange[0] >= dateRange[1]) {
       throw new UtilError("invalid-range");
@@ -48,15 +45,16 @@ export namespace DateUtility {
     const month = getRandomNumber(startMonth, endMonth);
 
     // Date
-    if (!majorMonths.includes(month)) {
-      endDate = 30;
-    } else if (month === 2) {
+    if (month === 2) {
       if (year % 4 === 0) {
         endDate = 29;
       } else {
         endDate = 28;
       }
+    } else if (!majorMonths.includes(month)) {
+      endDate = 30;
     }
+
     if (year === startYear && month === startMonth) {
       startDate = dateRange[0].getDate();
     }
@@ -114,10 +112,21 @@ export namespace DateUtility {
     }
     const second = getRandomNumber(startSecond, endSecond);
 
-    return new Date(
+    const result = new Date(
       `${year}-${getTimeString(month)}-${getTimeString(date)}T${getTimeString(
         hour
       )}:${getTimeString(minute)}:${getTimeString(second)}`
     );
+    try {
+      result.toISOString();
+      return result;
+    } catch {
+      console.error(
+        `${year}-${getTimeString(month)}-${getTimeString(date)}T${getTimeString(
+          hour
+        )}:${getTimeString(minute)}:${getTimeString(second)}`
+      );
+      return new Date();
+    }
   }
 }
