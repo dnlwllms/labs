@@ -37,5 +37,5 @@ Developing...
 ### Install Packages
 
 ```bash
-  cd labs-main && yarn install
+  cd labs && yarn install
 ```
