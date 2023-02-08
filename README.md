@@ -31,7 +31,7 @@ Developing...
 ### Clone Repository
 
 ```bash
-  git clone https://github.com/dnlwllms/labs
+  git clone https://github.com/dnlwllms/labs.git
 ```
 
 ### Install Packages
