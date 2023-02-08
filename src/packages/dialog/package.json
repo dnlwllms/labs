@@ -1,19 +1,13 @@
 {
   "name": "@dnlwllms/dialog",
-  "version": "1.1.4",
+  "version": "1.2.0",
   "description": "Popup, Select, Modal 등 대화상자 사용자 인터렉션 컴포넌트를 만들기 위한 코어 컴포넌트",
   "files": [
     "dist"
   ],
-  "type": "module",
-  "types": "dist/index.d.ts",
-  "exports": {
-    ".": {
-      "module": {
-        "default": "./dist/index.js"
-      }
-    }
-  },
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
   "keywords": [],
   "author": "Daniel",
   "license": "MIT",
