@@ -5,8 +5,8 @@
 ## Stacks
 
 ### Major
-![TypeScript](https://img.shields.io/badge/TypeScript-3178c6?style=flat&logo=typescript&logoColor=ffffff)
-![React](https://img.shields.io/badge/React-3178c6?style=flat&logo=react&logoColor=ffffff)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178c6?style=flat&logo=typescript&logoColor=ffffff)](https://www.typescriptlang.org)
+[![React](https://img.shields.io/badge/React-3178c6?style=flat&logo=react&logoColor=ffffff)](https://reactjs.org)
 
 ## Packages
 
@@ -25,3 +25,17 @@ The business logic of interactions such as Modal, Select, Popup, etc. has been p
 ### [table](https://github.com/dnlwllms/labs/tree/main/src/packages/table)
 
 Developing...
+
+## Installation
+
+### Clone Repository
+
+```bash
+  git clone https://github.com/dnlwllms/labs
+```
+
+### Install Packages
+
+```bash
+  cd labs-main && yarn install
+```
