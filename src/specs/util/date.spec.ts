@@ -1,5 +1,4 @@
-import { DateUtility, TestUtility } from "../../packages/util";
-import { UtilError } from "../../packages/util/UtilError";
+import { DateUtility, TestUtility, UtilError } from "../../packages/util";
 
 const { getRandomDate } = DateUtility;
 const { call } = TestUtility;
