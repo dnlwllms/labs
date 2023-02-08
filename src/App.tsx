@@ -1,10 +1,12 @@
-import { ChangeEvent, useEffect } from "react";
-import Form, { useForm, regExpExample } from "./packages/form";
+import { ChangeEvent } from "react";
 import Dialog from "./packages/dialog";
-import { NumberUtility, WindowUtility } from "./packages/util";
+import Form, { regExpExample, useForm } from "./packages/form";
+import { NumberUtility, StringUtility, DateUtility } from "./packages/util";
+import Table from "./packages/table";
 
-const { getTelNumber } = NumberUtility;
-const { getIsInViewport: isInViewport } = WindowUtility;
+const { getRandomNumber } = NumberUtility;
+const { getRandomWord, getStringParagragh } = StringUtility;
+const { getRandomDate } = DateUtility;
 
 type TestForm = {
   id: number;
@@ -15,16 +17,6 @@ type TestForm = {
 };
 
 function App() {
-  useEffect(() => {
-    window.addEventListener("click", (e) => {
-      const target = e.target as HTMLElement;
-      const rect = target.getBoundingClientRect();
-      isInViewport(
-        { innerWidth: window.innerWidth, innerHeight: window.innerHeight },
-        rect
-      );
-    });
-  }, []);
   const form = useForm<TestForm>({
     initialValues: {
       id: 0,
@@ -58,8 +50,51 @@ function App() {
   });
 
   const handleTelChange = (e: ChangeEvent<HTMLInputElement>) => {
-    form.handleValue("tel", getTelNumber(e.target.value));
+    // form.handleValue("tel", getTelNumber(e.target.value));
   };
+
+  const columns = [
+    {
+      key: "personalInfo",
+      title: "개인정보",
+      children: [
+        {
+          key: "id",
+          title: "아이디",
+        },
+        {
+          key: "name",
+          title: "이름",
+        },
+        {
+          key: "age",
+          title: "연령",
+        },
+        {
+          key: "gender",
+          title: "성별",
+        },
+      ],
+    },
+    {
+      key: "personalInfo2",
+      title: "부가정보",
+      children: [
+        {
+          key: "nickname",
+          title: "닉네임",
+        },
+        {
+          key: "memo",
+          title: "메모",
+        },
+        {
+          key: "createdAt",
+          title: "생성일",
+        },
+      ],
+    },
+  ];
 
   return (
     <div className="App">
@@ -102,6 +137,23 @@ function App() {
           </Dialog>
         );
       })}
+      <Table
+        columns={columns}
+        data={Array.from({ length: 100 }).map((_, index) => {
+          return {
+            id: index,
+            name: getRandomWord(getStringParagragh("names")),
+            age: getRandomNumber(15, 50),
+            gender: getRandomNumber() % 2 === 0 ? "male" : "female",
+            nickname: getRandomWord(getStringParagragh("names")),
+            memo: getRandomWord(),
+            createdAt: getRandomDate().toISOString(),
+          };
+        })}
+      >
+        <Table.Head />
+        <Table.Body />
+      </Table>
     </div>
   );
 }
