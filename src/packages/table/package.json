@@ -16,9 +16,9 @@
     "react-dom": ">16.0.0"
   },
   "dependencies": {
-    "@dnlwllms/dialog": ">1.2.0",
+    "@dnlwllms/dialog": ">1.3.0",
     "@dnlwllms/form": ">1.3.0",
-    "@dnlwllms/util": ">1.5.0"
+    "@dnlwllms/util": ">2.0.0"
   },
   "publishConfig": {
     "@dnlwllms:registry": "https://npm.pkg.github.com"
