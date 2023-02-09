@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 import { DialogComponent } from "../types";
-import { Body } from "./Body";
 import { DialogContext, DIALOG_DATA_ATTRIBUTE_NAME } from "./context";
-import { Trigger } from "./Trigger";
+import Body from "./Body";
+import Trigger from "./Trigger";
+import { Position } from "@dnlwllms/util";
 
 let initialId = 1;
 
@@ -11,6 +12,11 @@ const Dialog: DialogComponent = ({ children }) => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [triggerRect, setTriggerRect] = useState<DOMRect>();
+
+  const [triggerPosition, setTriggerPosition] = useState<Position>({
+    top: 0,
+    left: 0,
+  });
 
   const handleClose = useCallback(
     (e: MouseEvent) => {
@@ -48,6 +54,10 @@ const Dialog: DialogComponent = ({ children }) => {
 
     if (target) {
       setTriggerRect(target.getBoundingClientRect());
+      setTriggerPosition({
+        top: target.offsetTop,
+        left: target.offsetLeft,
+      });
     }
 
     setIsOpen(!isOpen);
@@ -58,6 +68,7 @@ const Dialog: DialogComponent = ({ children }) => {
       value={{
         id,
         isOpen,
+        triggerPosition,
         triggerRect,
         handleOpen,
         handleClose,

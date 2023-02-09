@@ -1,8 +1,8 @@
 import { cloneElement, FC, useContext } from "react";
-import { TriggerProps } from "../types";
+import { DialogTriggerProps } from "../types";
 import { DialogContext, DIALOG_DATA_ATTRIBUTE_NAME } from "./context";
 
-const Trigger: FC<TriggerProps> = ({ children }) => {
+const Trigger: FC<DialogTriggerProps> = ({ children }) => {
   const { id, handleOpen } = useContext(DialogContext);
 
   return cloneElement(children, {
@@ -17,4 +17,4 @@ const Trigger: FC<TriggerProps> = ({ children }) => {
   });
 };
 
-export { Trigger };
+export default Trigger;
