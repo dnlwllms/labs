@@ -6,6 +6,8 @@ import { TestUtility } from "./TestUtility";
 import { WindowUtility } from "./WindowUtility";
 import { UtilError } from "./UtilError";
 
+export * from "./types";
+
 export {
   NumberUtility,
   StringUtility,

@@ -1,154 +1,57 @@
+import { MovePositionOption, Position, Viewport } from "./types";
+
 export namespace WindowUtility {
-  /**
-   * Window 객체에 있는 innerWidth, innerHeight
-   */
-  export type WindowSize = {
-    innerWidth: number;
-    innerHeight: number;
-  };
-
-  /**
-   * DOMRect 객체의 좌표
-   */
-  export type Coordinate = { x: number; y: number };
-
-  /**
-   * 두 번째 인자인 DOMRect 객체가 첫 번째 인자인 window 객체 사이즈 안에 있는지 여부
-   * @param {WindowSize} windowSize
-   * @param {DOMRect} domRect
-   * @returns {boolean}
-   * @example
-   * ```typescript
-   * useEffect(() => {
-   *  window.addEventListener("click", (e) => {
-   *    const target = e.target as HTMLElement;
-   *    const domRect = e.target.getBoundingClientRect();
-   *    const windowSize: WindowSize = {
-   *      innerWidth: window.innerWidth,
-   *      innerHeight: widnow.innerHeight,
-   *    }
-   *    getIsInViewport(windowSize, domRect);
-   *  })
-   * }, [])
-   * ```
-   */
-  export function getIsInViewport(
-    windowSize: WindowSize,
-    domRect: DOMRect
+  export function getIsWidthOver(
+    viewportWidth: number,
+    rect: DOMRect
   ): boolean {
+    return rect.x + rect.width >= viewportWidth;
+  }
+
+  export function getIsHeightOver(
+    viewportHeight: number,
+    rect: DOMRect
+  ): boolean {
+    return rect.y + rect.height >= viewportHeight;
+  }
+
+  export function getIsInViewport(viewport: Viewport, rect: DOMRect) {
     return (
-      windowSize.innerWidth >= domRect.width + domRect.x &&
-      windowSize.innerHeight >= domRect.height + domRect.y
+      !getIsWidthOver(viewport.width, rect) &&
+      !getIsHeightOver(viewport.height, rect)
     );
   }
 
   /**
-   * Viewport 안에 있지 않을 때 x축 이탈 여부
-   * @param {number} innerWidth
-   * @param {DOMRect} domRect
-   * @returns {boolean}
-   * @example
-   * ```typescript
-   * useEffect(() => {
-   *  window.addEventListener("click", (e) => {
-   *    const target = e.target as HTMLElement;
-   *    const domRect = e.target.getBoundingClientRect();
    *
-   *    getIsOverX(window.innerWidth, domRect);
-   *  })
-   * }, [])
-   * ```
+   * @param {Viewport} viewport window.innerWidth, window.innerHeight
+   * @param {HTMLElement} element 오버레이할 엘리멘트
+   * @param {Position} position 트리거의 위치(offsetTop, offsetLeft)
+   * @param {MovePositionOption} options 기타 간격 조정 등
    */
-  export function getIsOverX(innerWidth: number, domRect: DOMRect): boolean {
-    return (
-      innerWidth < domRect.width + domRect.x || domRect.x + domRect.width < 0
-    );
-  }
+  export function movePositionIntoViewport(
+    viewport: Viewport,
+    element: HTMLElement,
+    position: Position,
+    options?: MovePositionOption
+  ) {
+    let elementRect = element.getBoundingClientRect();
 
-  /**
-   * Viewport 안에 있지 않을 때 y축 이탈 여부
-   * @param {number} innerHeight
-   * @param {DOMRect} domRect
-   * @returns {boolean}
-   * @example
-   * ```typescript
-   * useEffect(() => {
-   *  window.addEventListener("click", (e) => {
-   *    const target = e.target as HTMLElement;
-   *    const domRect = e.target.getBoundingClientRect();
-   *
-   *    getIsOverX(window.innerHeight, domRect);
-   *  })
-   * }, [])
-   * ```
-   */
-  export function getIsOverY(innerHeight: number, domRect: DOMRect): boolean {
-    return (
-      innerHeight < domRect.height + domRect.y || domRect.y + domRect.height < 0
-    );
-  }
-
-  /**
-   * 이탈 여부를 체크해서 Viewport 안으로 이동된 x,y 좌표값 반환
-   * @param {WindowSize} windowSize
-   * @param {DOMRect} domRect
-   * @returns {Coordinate}
-   * @example
-   * ```typescript
-   * useEffect(() => {
-   *  window.addEventListener("click", (e) => {
-   *    const target = e.target as HTMLElement;
-   *    const domRect = e.target.getBoundingClientRect();
-   *    const windowSize: WindowSize = {
-   *      innerWidth: window.innerWidth,
-   *      innerHeight: widnow.innerHeight,
-   *    }
-   *    getMovedCoordinateIntoViewport(windowSize, domRect);
-   *  })
-   * }, [])
-   * ```
-   */
-  export function getMovedCoordinateIntoViewport(
-    windowSize: WindowSize,
-    domRect: DOMRect
-  ): DOMRect {
-    const isOverX = getIsOverX(windowSize.innerWidth, domRect);
-    const isOverY = getIsOverY(windowSize.innerHeight, domRect);
-
-    console.log(domRect);
-
-    const movedCooridnate: DOMRect = {
-      ...domRect,
-    };
-
-    if (isOverX) {
-      if (domRect.x < 0) {
-        movedCooridnate.x = 0;
-      } else {
-        movedCooridnate.x = windowSize.innerWidth - domRect.width;
-      }
+    if (getIsWidthOver(viewport.width, elementRect)) {
+      element.style.left = `unset`;
+      element.style.right = `${options?.rightMargin || 0}px`;
+    } else {
+      element.style.left = `${position.left + (options?.leftMargin || 0)}px`;
     }
 
-    if (isOverY) {
-      if (domRect.y < 0) {
-        movedCooridnate.y = 0;
-      } else {
-        movedCooridnate.y = windowSize.innerHeight - domRect.height;
-      }
+    elementRect = element.getBoundingClientRect();
+
+    if (getIsHeightOver(viewport.height, elementRect)) {
+      element.style.top = `${
+        position.top - elementRect.height + (options?.bottomMargin || 0)
+      }px`;
+    } else {
+      element.style.top = `${position.top + (options?.topMargin || 0)}px`;
     }
-
-    const movedDomRect: DOMRect = {
-      width: domRect.width,
-      height: domRect.height,
-      x: movedCooridnate.x,
-      y: movedCooridnate.y,
-      left: movedCooridnate.x,
-      top: movedCooridnate.y,
-      right: windowSize.innerWidth - (domRect.width + movedCooridnate.x),
-      bottom: windowSize.innerHeight - (domRect.height + movedCooridnate.y),
-      toJSON: () => {},
-    };
-
-    return movedDomRect;
   }
 }
