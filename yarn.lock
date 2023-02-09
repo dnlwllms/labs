@@ -1234,9 +1234,9 @@
   integrity sha512-wF6xJgt55sIBkF/JP4vnWuXAEWACxc/8pbVIbCqWyCnsSYqupUfhFnFzfI9LBvFA3BnzPjZ9HKLzlHhIU6mkPA==
 
 "@dnlwllms/util@^1.3.9":
-  version "1.4.1"
-  resolved "https://npm.pkg.github.com/download/@dnlwllms/util/1.4.1/0dc85d20cc10e1af1ab8f279d9d42a45e79746e6#0dc85d20cc10e1af1ab8f279d9d42a45e79746e6"
-  integrity sha512-wUmdaegQlftH62aI4ETtKHhyqjoZtf9coD8GuiK49P29TTMvhqw/MsrOwQP/iyeU84sc5Zjq+tYwNU2A9+oObQ==
+  version "1.12.5"
+  resolved "https://npm.pkg.github.com/download/@dnlwllms/util/1.12.5/72e0a4c29bd5de8d2cc6f6bae30318061ab4a046#72e0a4c29bd5de8d2cc6f6bae30318061ab4a046"
+  integrity sha512-1zgzI1Rs30FSAdnEJ31Mb9R3EF2Fx0o2v25n5PV+ykf2wBxEzW5nK1wHyhDMJOJKtWMM/7PGAXNkESNwwUhdxQ==
 
 "@eslint/eslintrc@^1.4.1":
   version "1.4.1"
