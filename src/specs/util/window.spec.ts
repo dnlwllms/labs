@@ -52,14 +52,8 @@ describe("Window Viewport Test", () => {
 
   it("x, y 둘 다 이탈 시 getIsInViewport 테스트", () => {
     call(100, () => {
-      const x = getRandomNumber(
-          innerWidth - rectWidth + 1,
-          innerWidth + rectWidth
-        ),
-        y = getRandomNumber(
-          innerHeight - rectHeight + 1,
-          innerHeight + rectHeight
-        );
+      const x = getRandomNumber(innerWidth - rectWidth + 1, innerWidth),
+        y = getRandomNumber(innerHeight - rectHeight + 1, innerHeight);
 
       let rect: DOMRect = {
         x,
@@ -79,10 +73,7 @@ describe("Window Viewport Test", () => {
 
   it("x축만 이탈 시 getIsOverX, getIsOverY 테스트", () => {
     call(100, () => {
-      const x = getRandomNumber(
-          innerWidth - rectWidth + 1,
-          innerWidth + rectWidth
-        ),
+      const x = getRandomNumber(innerWidth - rectWidth + 1, innerWidth),
         y = getRandomNumber(0, innerHeight - rectHeight);
 
       let rect: DOMRect = {

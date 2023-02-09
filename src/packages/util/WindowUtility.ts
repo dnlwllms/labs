@@ -60,7 +60,9 @@ export namespace WindowUtility {
    * ```
    */
   export function getIsOverX(innerWidth: number, domRect: DOMRect): boolean {
-    return innerWidth < domRect.width + domRect.x;
+    return (
+      innerWidth < domRect.width + domRect.x || domRect.x + domRect.width < 0
+    );
   }
 
   /**
@@ -81,7 +83,9 @@ export namespace WindowUtility {
    * ```
    */
   export function getIsOverY(innerHeight: number, domRect: DOMRect): boolean {
-    return innerHeight < domRect.height + domRect.y;
+    return (
+      innerHeight < domRect.height + domRect.y || domRect.y + domRect.height < 0
+    );
   }
 
   /**
@@ -111,18 +115,26 @@ export namespace WindowUtility {
     const isOverX = getIsOverX(windowSize.innerWidth, domRect);
     const isOverY = getIsOverY(windowSize.innerHeight, domRect);
 
+    console.log(domRect);
+
     const movedCooridnate: DOMRect = {
       ...domRect,
     };
 
     if (isOverX) {
-      const moveDistance = domRect.width + domRect.x - windowSize.innerWidth;
-      movedCooridnate.x = domRect.x - moveDistance;
+      if (domRect.x < 0) {
+        movedCooridnate.x = 0;
+      } else {
+        movedCooridnate.x = windowSize.innerWidth - domRect.width;
+      }
     }
 
     if (isOverY) {
-      const moveDistance = domRect.height + domRect.y - windowSize.innerHeight;
-      movedCooridnate.y = domRect.y - moveDistance;
+      if (domRect.y < 0) {
+        movedCooridnate.y = 0;
+      } else {
+        movedCooridnate.y = windowSize.innerHeight - domRect.height;
+      }
     }
 
     const movedDomRect: DOMRect = {
