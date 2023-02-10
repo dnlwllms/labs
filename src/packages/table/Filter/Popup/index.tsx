@@ -15,7 +15,7 @@ const Popup: FC<FilterPopupProps> = ({ children, positionOption }) => {
               ...positionOption,
             }}
           >
-            {children}
+            {children({ handleClose })}
           </Dialog.Body.Popup>
         );
       }}

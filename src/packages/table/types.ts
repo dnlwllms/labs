@@ -1,5 +1,5 @@
 import { MovePositionOption } from "@dnlwllms/util";
-import { FC, PropsWithChildren, ReactElement } from "react";
+import { FC, PropsWithChildren, ReactElement, ReactNode } from "react";
 
 export type ColumnDataType = "string" | "date" | "number";
 
@@ -18,12 +18,16 @@ export type TableClientColumn = TableColumn & {
   colSpan: number;
 };
 
-export interface TableProps extends PropsWithChildren {
+export interface TableProps {
+  children: (context: TableContextType) => ReactNode;
   columns: Array<TableColumn>;
   data: any;
 }
 
 export type TableContextType = {
+  columns: TableColumn[];
+  data: [];
+  setData: (data: any) => void;
   entryColumns: TableClientColumn[][];
   entryData: string[][][];
 };
@@ -35,13 +39,9 @@ export type InternalTable = {
 
 export interface TableComponent extends FC<TableProps>, InternalTable {}
 
-export interface TableHeadProps {
-  children?: (context: TableContextType) => ReactElement | ReactElement[];
-}
+export interface TableHeadProps extends PropsWithChildren {}
 
-export interface TableBodyProps {
-  children?: (context: TableContextType) => ReactElement | ReactElement[];
-}
+export interface TableBodyProps extends PropsWithChildren {}
 
 export type InternalFilter = {
   Button: FC<FilterButtonProps>;
@@ -57,6 +57,6 @@ export interface FilterButtonProps {
 }
 
 export interface FilterPopupProps {
-  children: ReactElement;
+  children: (renderProps: { handleClose: () => void }) => ReactElement;
   positionOption?: MovePositionOption;
 }

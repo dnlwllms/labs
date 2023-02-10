@@ -1,7 +1,7 @@
-import { FC, useRef } from "react";
+import { FC, useEffect, useRef } from "react";
 import Form, { useForm } from "./packages/form";
 import { NumberUtility, StringUtility, DateUtility } from "./packages/util";
-import Table, { Filter } from "./packages/table";
+import Table, { Filter, TableColumn } from "./packages/table";
 
 const { getRandomNumber } = NumberUtility;
 const { getRandomWord, getStringParagragh } = StringUtility;
@@ -18,7 +18,7 @@ type TestData = {
 };
 
 function App() {
-  const columns = [
+  const columns: TableColumn[] = [
     {
       key: "personalInfo",
       title: "개인정보",
@@ -76,61 +76,65 @@ function App() {
   return (
     <div>
       <Table columns={columns} data={data}>
-        <Table.Head>
-          {({ entryColumns }) => {
-            return entryColumns.map((row, rowIndex) => {
-              return (
-                <tr key={row[rowIndex].key}>
-                  {row.map((column) => {
-                    return (
-                      <th key={column.key} colSpan={column.colSpan}>
-                        {column.title}
-                        {rowIndex === entryColumns.length - 1 && (
-                          <Filter>
-                            <Filter.Button />
-                            <Filter.Popup
-                              positionOption={{
-                                rightMargin: 12,
-                              }}
-                            >
-                              {({ setData, handleClose }) => {
-                                return (
-                                  <div
-                                    style={{
-                                      whiteSpace: "nowrap",
-                                      background: "white",
-                                      padding: 20,
-                                      borderRadius: 10,
-                                      border: "1px solid gray",
-                                    }}
-                                  >
-                                    <FilterForm
-                                      columnKey={column.key}
-                                      data={data}
-                                      onSubmit={(filteredData: any[]) => {
-                                        if (filteredData.length === 0) {
-                                          alert("데이터가 없습니다.");
-                                        } else {
-                                          setData(filteredData);
-                                        }
-                                        handleClose();
-                                      }}
-                                    />
-                                  </div>
-                                );
-                              }}
-                            </Filter.Popup>
-                          </Filter>
-                        )}
-                      </th>
-                    );
-                  })}
-                </tr>
-              );
-            });
-          }}
-        </Table.Head>
-        <Table.Body />
+        {({ entryColumns, setData }) => {
+          return (
+            <>
+              <Table.Head>
+                {entryColumns.map((row, rowIndex) => {
+                  return (
+                    <tr key={row[rowIndex].key}>
+                      {row.map((column) => {
+                        return (
+                          <th key={column.key} colSpan={column.colSpan}>
+                            {column.title}
+                            {rowIndex === entryColumns.length - 1 && (
+                              <Filter>
+                                <Filter.Button />
+                                <Filter.Popup
+                                  positionOption={{
+                                    rightMargin: 12,
+                                  }}
+                                >
+                                  {({ handleClose }) => {
+                                    return (
+                                      <div
+                                        style={{
+                                          whiteSpace: "nowrap",
+                                          background: "white",
+                                          padding: 20,
+                                          borderRadius: 10,
+                                          border: "1px solid gray",
+                                        }}
+                                      >
+                                        <FilterForm
+                                          columnKey={column.key}
+                                          data={data}
+                                          onSubmit={(filteredData: any[]) => {
+                                            if (filteredData.length === 0) {
+                                              alert("데이터가 없습니다.");
+                                            } else {
+                                              setData(filteredData);
+                                            }
+                                            handleClose();
+                                          }}
+                                        />
+                                      </div>
+                                    );
+                                  }}
+                                </Filter.Popup>
+                              </Filter>
+                            )}
+                          </th>
+                        );
+                      })}
+                    </tr>
+                  );
+                })}
+              </Table.Head>
+              <Table.Body />
+            </>
+          );
+        }}
       </Table>
     </div>
   );
@@ -146,6 +150,11 @@ interface FilterFormProps {
 
 const FilterForm: FC<FilterFormProps> = ({ columnKey, data, onSubmit }) => {
   const firstInputRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    if (firstInputRef.current) {
+      firstInputRef.current.focus();
+    }
+  }, []);
   const filterForm = useForm({
     initialValues: {
       keyword: "",

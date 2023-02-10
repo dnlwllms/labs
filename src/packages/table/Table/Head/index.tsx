@@ -7,21 +7,20 @@ const Head: FC<TableHeadProps> = ({ children }) => {
 
   return (
     <thead>
-      {children
-        ? children(tableContext)
-        : tableContext.entryColumns.map((row, rowIndex) => {
-            return (
-              <tr key={row[rowIndex].key}>
-                {row.map((column) => {
-                  return (
-                    <th key={column.key} colSpan={column.colSpan}>
-                      {column.title}
-                    </th>
-                  );
-                })}
-              </tr>
-            );
-          })}
+      {children ||
+        tableContext.entryColumns.map((row, rowIndex) => {
+          return (
+            <tr key={row[rowIndex].key}>
+              {row.map((column) => {
+                return (
+                  <th key={column.key} colSpan={column.colSpan}>
+                    {column.title}
+                  </th>
+                );
+              })}
+            </tr>
+          );
+        })}
     </thead>
   );
 };
