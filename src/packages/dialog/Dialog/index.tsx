@@ -20,7 +20,7 @@ const Dialog: DialogComponent = ({ children }) => {
 
   const handleClose = useCallback(
     (e: MouseEvent) => {
-      const isTarget = e.composedPath().some((target) => {
+      const isTarget = e?.composedPath().some((target) => {
         const element = target as HTMLElement;
         const isElement = !!element.getAttribute;
 
