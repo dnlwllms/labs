@@ -1266,6 +1266,11 @@
   resolved "https://npm.pkg.github.com/download/@dnlwllms/util/2.2.0/70857d3d9377ccf75b8ec15cd03264b3b5eac346#70857d3d9377ccf75b8ec15cd03264b3b5eac346"
   integrity sha512-/FJbEnbhcNOykf+7otGF5W/1I1nBkDRD/IDYzHI0MI+3TQdaIR7S0sm8MhihGw7V8FbUTYrixAIWodQEup39Uw==
 
+"@dnlwllms/util@^2.3.0":
+  version "2.3.0"
+  resolved "https://npm.pkg.github.com/download/@dnlwllms/util/2.3.0/418a0e66f55d3b3a4fed4c1e495c256c051b82a9#418a0e66f55d3b3a4fed4c1e495c256c051b82a9"
+  integrity sha512-7jZfCROUjbIDbX7nGyuOQRwbGhGRQ9YQwpKi+WHDPLa+5Mx+E/AsGnn3j0zjdxNgc4c1Nz/4jU+hXvT8nvygRQ==
+
 "@eslint/eslintrc@^1.4.1":
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/@eslint/eslintrc/-/eslintrc-1.4.1.tgz#af58772019a2d271b7e2d4c23ff4ddcba3ccfb3e"
