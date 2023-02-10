@@ -76,7 +76,7 @@ function App() {
   return (
     <div>
       <Table columns={columns} data={data}>
-        {({ entryColumns, setData }) => {
+        {({ clientData, entryColumns, setClientData }) => {
           return (
             <>
               <Table.Head>
@@ -108,12 +108,12 @@ function App() {
                                       >
                                         <FilterForm
                                           columnKey={column.key}
-                                          data={data}
+                                          data={clientData}
                                           onSubmit={(filteredData: any[]) => {
                                             if (filteredData.length === 0) {
                                               alert("데이터가 없습니다.");
                                             } else {
-                                              setData(filteredData);
+                                              setClientData(filteredData);
                                             }
                                             handleClose();
                                           }}

@@ -15,7 +15,8 @@ const Table: TableComponent = ({ columns, data, children }) => {
   const contextValue = {
     columns,
     data,
-    setData: setClientData,
+    clientData,
+    setClientData,
     entryColumns,
     entryData,
   };
