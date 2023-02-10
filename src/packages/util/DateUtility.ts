@@ -6,6 +6,9 @@ const { getRandomNumber } = NumberUtility;
 export namespace DateUtility {
   const majorMonths = [1, 3, 5, 7, 8, 10, 12];
 
+  export function getIsDate(value: any) {
+    return !!value.toISOString;
+  }
   export function getTimeString(num: number) {
     if (num < 10) {
       return `0${num}`;
