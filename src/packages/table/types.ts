@@ -27,7 +27,8 @@ export interface TableProps {
 export type TableContextType = {
   columns: TableColumn[];
   data: [];
-  setData: (data: any) => void;
+  clientData: [];
+  setClientData: (data: any) => void;
   entryColumns: TableClientColumn[][];
   entryData: string[][][];
 };
