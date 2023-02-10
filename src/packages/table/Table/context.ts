@@ -8,4 +8,6 @@ export const TableContext = createContext<TableContextType>({
   setClientData: console.debug,
   entryColumns: [],
   entryData: [],
+  appliedFilters: [],
+  setAppliedFilters: console.debug,
 });

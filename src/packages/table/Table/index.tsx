@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { getEntryColumns, getEntryDataBindingColumns } from "./helper";
-import { TableColumn, TableComponent } from "../types";
+import { FilterCondition, TableColumn, TableComponent } from "../types";
 import { TableContext } from "./context";
 
 import Head from "./Head";
@@ -12,6 +12,15 @@ const Table: TableComponent = ({ columns, data, children }) => {
   const [clientData, setClientData] = useState(data);
   const entryData = getEntryDataBindingColumns(columns, clientData);
 
+  // 현재 적용된 Filter를 관리하는 hooks
+  const [appliedFilters, setAppliedFilters] = useState<
+    Array<{
+      filterCondition: FilterCondition;
+      column: TableColumn;
+      filterValue: string;
+    }>
+  >([]);
+
   const contextValue = {
     columns,
     data,
@@ -19,6 +28,8 @@ const Table: TableComponent = ({ columns, data, children }) => {
     setClientData,
     entryColumns,
     entryData,
+    appliedFilters,
+    setAppliedFilters,
   };
 
   return (
