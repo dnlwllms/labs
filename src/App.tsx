@@ -1,58 +1,23 @@
-import { ChangeEvent } from "react";
-import Dialog from "./packages/dialog";
-import Form, { regExpExample, useForm } from "./packages/form";
+import { FC, useRef } from "react";
+import Form, { useForm } from "./packages/form";
 import { NumberUtility, StringUtility, DateUtility } from "./packages/util";
-import Table, { Filter } from "@dnlwllms/table";
+import Table, { Filter } from "./packages/table";
 
-const { getRandomNumber, getTelNumber } = NumberUtility;
+const { getRandomNumber } = NumberUtility;
 const { getRandomWord, getStringParagragh } = StringUtility;
 const { getRandomDate } = DateUtility;
 
-type TestForm = {
+type TestData = {
   id: number;
   name: string;
-  email: string;
-  tel: string;
-  options: string[];
+  age: number;
+  gender: string;
+  nickname: string;
+  memo: string;
+  createdAt: string;
 };
 
 function App() {
-  const form = useForm<TestForm>({
-    initialValues: {
-      id: 0,
-      name: "",
-      email: "",
-      tel: "",
-      options: ["a", "b", "c"],
-    },
-    validation: [
-      {
-        key: "id",
-        regExp: regExpExample.userId,
-        message: "잘못된 형식 입니다.",
-      },
-      {
-        key: "name",
-        regExp: regExpExample.koreanName,
-        message: "잘못된 이름 형식 입니다.",
-      },
-      {
-        key: "email",
-        regExp: regExpExample.email,
-        message: "잘못된 이메일 형식 입니다.",
-      },
-      {
-        key: "tel",
-        regExp: regExpExample.tel,
-        message: "잘못된 전화번호 형식 입니다.",
-      },
-    ],
-  });
-
-  const handleTelChange = (e: ChangeEvent<HTMLInputElement>) => {
-    form.handleValue("tel", getTelNumber(e.target.value));
-  };
-
   const columns = [
     {
       key: "personalInfo",
@@ -96,75 +61,21 @@ function App() {
     },
   ];
 
+  const data: TestData[] = Array.from({ length: 100 }).map((_, index) => {
+    return {
+      id: index,
+      name: getRandomWord(getStringParagragh("names")),
+      age: getRandomNumber(15, 50),
+      gender: getRandomNumber() % 2 === 0 ? "male" : "female",
+      nickname: getRandomWord(getStringParagragh("names")),
+      memo: getRandomWord(),
+      createdAt: getRandomDate().toISOString(),
+    };
+  });
+
   return (
     <div>
-      <Form form={form} onSubmit={console.log}>
-        <Form.Item fieldKey="id">
-          <Form.Item.Input />
-          <Form.Item.ErrorMessage as={<div />} />
-        </Form.Item>
-        <Form.Item fieldKey="name">
-          <Form.Item.Input type="name" />
-          <Form.Item.ErrorMessage as={<div />} />
-        </Form.Item>
-        <Form.Item fieldKey="email">
-          <Form.Item.Input type="email" />
-          <Form.Item.ErrorMessage as={<div />} />
-        </Form.Item>
-        <Form.Item fieldKey="tel">
-          <Form.Item.Input type="tel" onChange={handleTelChange} />
-          <Form.Item.ErrorMessage as={<div />} />
-        </Form.Item>
-        <button>submit</button>
-      </Form>
-      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12].map((key) => {
-        return (
-          <Dialog key={key}>
-            <Dialog.Trigger>
-              <button>open</button>
-            </Dialog.Trigger>
-            <Dialog.Body>
-              {({ triggerRect, handleClose }) => {
-                return (
-                  <Dialog.Body.Popup
-                    triggerRect={triggerRect}
-                    handleClose={handleClose}
-                    positionOption={{
-                      topMargin: triggerRect?.height || 0,
-                    }}
-                  >
-                    <div
-                      style={{
-                        whiteSpace: "nowrap",
-                        background: "white",
-                        padding: 20,
-                        borderRadius: 10,
-                        border: "1px solid gray",
-                      }}
-                    >
-                      하이하이하이하이하이하이하이
-                    </div>
-                  </Dialog.Body.Popup>
-                );
-              }}
-            </Dialog.Body>
-          </Dialog>
-        );
-      })}
-      <Table
-        columns={columns}
-        data={Array.from({ length: 100 }).map((_, index) => {
-          return {
-            id: index,
-            name: getRandomWord(getStringParagragh("names")),
-            age: getRandomNumber(15, 50),
-            gender: getRandomNumber() % 2 === 0 ? "male" : "female",
-            nickname: getRandomWord(getStringParagragh("names")),
-            memo: getRandomWord(),
-            createdAt: getRandomDate().toISOString(),
-          };
-        })}
-      >
+      <Table columns={columns} data={data}>
         <Table.Head>
           {({ entryColumns }) => {
             return entryColumns.map((row, rowIndex) => {
@@ -174,26 +85,43 @@ function App() {
                     return (
                       <th key={column.key} colSpan={column.colSpan}>
                         {column.title}
-                        <Filter>
-                          <Filter.Button />
-                          <Filter.Popup
-                            positionOption={{
-                              rightMargin: 12,
-                            }}
-                          >
-                            <div
-                              style={{
-                                whiteSpace: "nowrap",
-                                background: "white",
-                                padding: 20,
-                                borderRadius: 10,
-                                border: "1px solid gray",
+                        {rowIndex === entryColumns.length - 1 && (
+                          <Filter>
+                            <Filter.Button />
+                            <Filter.Popup
+                              positionOption={{
+                                rightMargin: 12,
                               }}
                             >
-                              하이하이하이하이하이하이하이
-                            </div>
-                          </Filter.Popup>
-                        </Filter>
+                              {({ setData, handleClose }) => {
+                                return (
+                                  <div
+                                    style={{
+                                      whiteSpace: "nowrap",
+                                      background: "white",
+                                      padding: 20,
+                                      borderRadius: 10,
+                                      border: "1px solid gray",
+                                    }}
+                                  >
+                                    <FilterForm
+                                      columnKey={column.key}
+                                      data={data}
+                                      onSubmit={(filteredData: any[]) => {
+                                        if (filteredData.length === 0) {
+                                          alert("데이터가 없습니다.");
+                                        } else {
+                                          setData(filteredData);
+                                        }
+                                        handleClose();
+                                      }}
+                                    />
+                                  </div>
+                                );
+                              }}
+                            </Filter.Popup>
+                          </Filter>
+                        )}
                       </th>
                     );
                   })}
@@ -209,3 +137,38 @@ function App() {
 }
 
 export default App;
+
+interface FilterFormProps {
+  columnKey: string;
+  data: any[];
+  onSubmit: (filteredData: any[]) => void;
+}
+
+const FilterForm: FC<FilterFormProps> = ({ columnKey, data, onSubmit }) => {
+  const firstInputRef = useRef<HTMLInputElement>(null);
+  const filterForm = useForm({
+    initialValues: {
+      keyword: "",
+    },
+  });
+
+  return (
+    <Form
+      form={filterForm}
+      onSubmit={(values) => {
+        const filteredData = data.filter((item) => {
+          const typedKey = columnKey as keyof TestData;
+          return String(item[typedKey])
+            .toLowerCase()
+            .includes(values.keyword.toLowerCase());
+        });
+        onSubmit(filteredData);
+      }}
+    >
+      <Form.Item fieldKey="keyword">
+        <Form.Item.Input ref={firstInputRef} />
+      </Form.Item>
+      <button>submit</button>
+    </Form>
+  );
+};
