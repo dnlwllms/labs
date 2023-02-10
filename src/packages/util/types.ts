@@ -1,3 +1,11 @@
+export enum FieldType {
+  STRING = 1,
+  NUMBER,
+  OBJECT,
+  STRING_ARRAY,
+  NUMBER_ARRAY,
+  DATE,
+}
 /**
  * Window 객체에 있는 innerWidth, innerHeight
  */

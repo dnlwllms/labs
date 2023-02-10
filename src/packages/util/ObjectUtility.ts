@@ -1,16 +1,11 @@
+import { DateUtility } from "./DateUtility";
 import { NumberUtility } from "./NumberUtility";
 import { StringUtility } from "./StringUtility";
-
-enum FieldType {
-  STRING = 1,
-  NUMBER,
-  OBJECT,
-  STRING_ARRAY,
-  NUMBER_ARRAY,
-}
+import { FieldType } from "./types";
 
 const { getRandomNumber } = NumberUtility;
 const { getRandomWord } = StringUtility;
+const { getRandomDate } = DateUtility;
 
 export namespace ObjectUtility {
   export function getRandomObject(
@@ -54,6 +49,9 @@ export namespace ObjectUtility {
             { length: getRandomNumber(2, 5) },
             () => getRandomNumber()
           );
+          break;
+        case FieldType.DATE:
+          object[fieldName] = getRandomDate();
           break;
       }
     }
