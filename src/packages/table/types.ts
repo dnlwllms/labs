@@ -1,5 +1,12 @@
 import { MovePositionOption } from "@dnlwllms/util";
-import { FC, PropsWithChildren, ReactElement, ReactNode } from "react";
+import {
+  Dispatch,
+  FC,
+  PropsWithChildren,
+  ReactElement,
+  ReactNode,
+  SetStateAction,
+} from "react";
 
 export type ColumnDataType = "string" | "date" | "number";
 
@@ -28,9 +35,11 @@ export type TableContextType = {
   columns: TableColumn[];
   data: [];
   clientData: [];
-  setClientData: (data: any) => void;
+  setClientData: Dispatch<SetStateAction<any>>;
   entryColumns: TableClientColumn[][];
   entryData: string[][][];
+  appliedFilters: Array<AppliedFilter>;
+  setAppliedFilters: Dispatch<SetStateAction<Array<AppliedFilter>>>;
 };
 
 export type InternalTable = {
@@ -61,3 +70,9 @@ export interface FilterPopupProps {
   children: (renderProps: { handleClose: () => void }) => ReactElement;
   positionOption?: MovePositionOption;
 }
+
+export type AppliedFilter = {
+  filterCondition: FilterCondition;
+  column: TableColumn;
+  filterValue: string;
+};
