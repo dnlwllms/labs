@@ -1223,27 +1223,43 @@
     debug "^3.1.0"
     lodash.once "^4.1.1"
 
-"@dnlwllms/dialog@^1.4.1":
-  version "1.4.1"
-  resolved "https://npm.pkg.github.com/download/@dnlwllms/dialog/1.4.1/b21987d0d5c621fd9b555738d8030c8eaa23d4ee#b21987d0d5c621fd9b555738d8030c8eaa23d4ee"
-  integrity sha512-slyLWqLb45s1WrqElg6697S9lLFkY4ZrRiREzDzkuMduVvESvOybJ8xgn2HYUKzZcGdOzVGgwI3/1+ag/6XSaQ==
+"@dnlwllms/dialog@^1.4.2":
+  version "1.4.2"
+  resolved "https://npm.pkg.github.com/download/@dnlwllms/dialog/1.4.2/316371d1442caa26377054343021d70ba45f2ee9#316371d1442caa26377054343021d70ba45f2ee9"
+  integrity sha512-A+UbOVkIfc10CDYzE4kauSgl0I7KhLDupy3Kb+sY6gUMzhXqCvwxUdHb6KyxLByzBwWCV3+z4YAsUkqNp7qpeg==
   dependencies:
-    "@dnlwllms/util" "^2.1.0"
+    "@dnlwllms/util" "^2.1.7"
+
+"@dnlwllms/dialog@^1.5.0":
+  version "1.5.0"
+  resolved "https://npm.pkg.github.com/download/@dnlwllms/dialog/1.5.0/4a874711a0dc0f0e7c663603c41cd72240419673#4a874711a0dc0f0e7c663603c41cd72240419673"
+  integrity sha512-Nx6/4OhxNn53wCGO9WJYvYGCegkkv9DhriuK7oezEZCK/szJq22wLeSMUoZhgivPDzLlv1U43aoGaGc0Kx0wzQ==
+  dependencies:
+    "@dnlwllms/util" "^2.2.0"
 
 "@dnlwllms/form@^1.3.0":
   version "1.3.0"
   resolved "https://npm.pkg.github.com/download/@dnlwllms/form/1.3.0/8be644e7eef0aa55b58f2cd0e878ee772e1a4b47#8be644e7eef0aa55b58f2cd0e878ee772e1a4b47"
   integrity sha512-wF6xJgt55sIBkF/JP4vnWuXAEWACxc/8pbVIbCqWyCnsSYqupUfhFnFzfI9LBvFA3BnzPjZ9HKLzlHhIU6mkPA==
 
-"@dnlwllms/util@^2.1.0":
-  version "2.1.0"
-  resolved "https://npm.pkg.github.com/download/@dnlwllms/util/2.1.0/71109107c68b775c5ba034f6f9f0e2eece6f35e9#71109107c68b775c5ba034f6f9f0e2eece6f35e9"
-  integrity sha512-DngjrnlvjeOV+YO0yB83ijh51tscIVdye2HIN/8ASZ8pVZdDaps2K6YduPvtW2T96HVfEraTYZiH1tnt2cU/6Q==
+"@dnlwllms/table@^0.0.5":
+  version "0.0.5"
+  resolved "https://npm.pkg.github.com/download/@dnlwllms/table/0.0.5/1bb480173f5f602082251652cef7bef4305ac7ca#1bb480173f5f602082251652cef7bef4305ac7ca"
+  integrity sha512-3T1MANic4DRaLofIGnQtIZxsinCIza/t3OuxwjSCYwoco3LFi2mohRWkAsEafFKxBDGHSfx0m34W/YbgJlQeGw==
+  dependencies:
+    "@dnlwllms/dialog" "^1.4.2"
+    "@dnlwllms/form" "^1.3.0"
+    "@dnlwllms/util" "^2.1.7"
 
 "@dnlwllms/util@^2.1.7":
   version "2.1.7"
   resolved "https://npm.pkg.github.com/download/@dnlwllms/util/2.1.7/e532e1965753c067764d92ab5a6ca3d969f52c6d#e532e1965753c067764d92ab5a6ca3d969f52c6d"
   integrity sha512-7RTEv/+VmeOkLSCwwOUMEEZE+/QC+0TbwX7aa47qyHLLsgTCuTlUSCI2iQiK519wjNYhOTkjbJ4hg0REEztJCw==
+
+"@dnlwllms/util@^2.2.0":
+  version "2.2.0"
+  resolved "https://npm.pkg.github.com/download/@dnlwllms/util/2.2.0/70857d3d9377ccf75b8ec15cd03264b3b5eac346#70857d3d9377ccf75b8ec15cd03264b3b5eac346"
+  integrity sha512-/FJbEnbhcNOykf+7otGF5W/1I1nBkDRD/IDYzHI0MI+3TQdaIR7S0sm8MhihGw7V8FbUTYrixAIWodQEup39Uw==
 
 "@eslint/eslintrc@^1.4.1":
   version "1.4.1"

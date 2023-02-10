@@ -2,9 +2,9 @@ import { ChangeEvent } from "react";
 import Dialog from "./packages/dialog";
 import Form, { regExpExample, useForm } from "./packages/form";
 import { NumberUtility, StringUtility, DateUtility } from "./packages/util";
-import Table from "./packages/table";
+import Table, { Filter } from "@dnlwllms/table";
 
-const { getRandomNumber } = NumberUtility;
+const { getRandomNumber, getTelNumber } = NumberUtility;
 const { getRandomWord, getStringParagragh } = StringUtility;
 const { getRandomDate } = DateUtility;
 
@@ -50,7 +50,7 @@ function App() {
   });
 
   const handleTelChange = (e: ChangeEvent<HTMLInputElement>) => {
-    // form.handleValue("tel", getTelNumber(e.target.value));
+    form.handleValue("tel", getTelNumber(e.target.value));
   };
 
   const columns = [
@@ -97,7 +97,7 @@ function App() {
   ];
 
   return (
-    <div className="App">
+    <div>
       <Form form={form} onSubmit={console.log}>
         <Form.Item fieldKey="id">
           <Form.Item.Input />
@@ -117,20 +117,34 @@ function App() {
         </Form.Item>
         <button>submit</button>
       </Form>
-      {[1, 2].map((key) => {
+      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12].map((key) => {
         return (
           <Dialog key={key}>
             <Dialog.Trigger>
-              <button>
-                <div>open{key}</div>
-              </button>
+              <button>open</button>
             </Dialog.Trigger>
             <Dialog.Body>
-              {() => {
+              {({ triggerRect, handleClose }) => {
                 return (
-                  <div>
-                    <div onClick={(e) => e.stopPropagation()}>하이{key}</div>
-                  </div>
+                  <Dialog.Body.Popup
+                    triggerRect={triggerRect}
+                    handleClose={handleClose}
+                    positionOption={{
+                      topMargin: triggerRect?.height || 0,
+                    }}
+                  >
+                    <div
+                      style={{
+                        whiteSpace: "nowrap",
+                        background: "white",
+                        padding: 20,
+                        borderRadius: 10,
+                        border: "1px solid gray",
+                      }}
+                    >
+                      하이하이하이하이하이하이하이
+                    </div>
+                  </Dialog.Body.Popup>
                 );
               }}
             </Dialog.Body>
@@ -151,7 +165,43 @@ function App() {
           };
         })}
       >
-        <Table.Head />
+        <Table.Head>
+          {({ entryColumns }) => {
+            return entryColumns.map((row, rowIndex) => {
+              return (
+                <tr key={row[rowIndex].key}>
+                  {row.map((column) => {
+                    return (
+                      <th key={column.key} colSpan={column.colSpan}>
+                        {column.title}
+                        <Filter>
+                          <Filter.Button />
+                          <Filter.Popup
+                            positionOption={{
+                              rightMargin: 12,
+                            }}
+                          >
+                            <div
+                              style={{
+                                whiteSpace: "nowrap",
+                                background: "white",
+                                padding: 20,
+                                borderRadius: 10,
+                                border: "1px solid gray",
+                              }}
+                            >
+                              하이하이하이하이하이하이하이
+                            </div>
+                          </Filter.Popup>
+                        </Filter>
+                      </th>
+                    );
+                  })}
+                </tr>
+              );
+            });
+          }}
+        </Table.Head>
         <Table.Body />
       </Table>
     </div>

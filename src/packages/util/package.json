@@ -1,6 +1,6 @@
 {
   "name": "@dnlwllms/util",
-  "version": "2.1.7",
+  "version": "2.2.0",
   "description": "유틸 함수 패키지",
   "files": [
     "dist"

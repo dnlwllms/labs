@@ -1,3 +1,4 @@
+import { MovePositionOption } from "@dnlwllms/util";
 import { FC, PropsWithChildren, ReactElement } from "react";
 
 export type ColumnDataType = "string" | "date" | "number";
@@ -57,4 +58,5 @@ export interface FilterButtonProps {
 
 export interface FilterPopupProps {
   children: ReactElement;
+  positionOption?: MovePositionOption;
 }
