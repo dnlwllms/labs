@@ -1,8 +1,10 @@
 import {
   FC,
+  ForwardRefExoticComponent,
   InputHTMLAttributes,
   PropsWithChildren,
   ReactElement,
+  RefAttributes,
 } from "react";
 
 export type UseFormParams<T> = {
@@ -30,12 +32,16 @@ export type UseFormOptions = {};
 export type FormError<T> = Partial<Record<keyof T, string[]>>;
 
 export type InternalForm = {
-  Input: FC<InputProps>;
+  Input: ForwardRefExoticComponent<
+    InputProps & RefAttributes<HTMLInputElement>
+  >;
   Item: FormItemComponent;
 };
 
 export type InternalFormItem = {
-  Input: FC<InputProps>;
+  Input: ForwardRefExoticComponent<
+    InputProps & RefAttributes<HTMLInputElement>
+  >;
   ErrorMessage: FC<ErrorMessageProps>;
 };
 
