@@ -1,7 +1,7 @@
 import { FC, useEffect, useRef } from "react";
 import Form, { useForm } from "./packages/form";
 import { NumberUtility, StringUtility, DateUtility } from "./packages/util";
-import Table, { Filter, TableColumn } from "./packages/table";
+import Table, { AppliedFilter, Filter, TableColumn } from "./packages/table";
 
 const { getRandomNumber } = NumberUtility;
 const { getRandomWord, getStringParagragh } = StringUtility;
@@ -76,7 +76,13 @@ function App() {
   return (
     <div>
       <Table columns={columns} data={data}>
-        {({ clientData, entryColumns, setClientData }) => {
+        {({
+          clientData,
+          entryColumns,
+          appliedFilters,
+          setClientData,
+          setAppliedFilters,
+        }) => {
           return (
             <>
               <Table.Head>
@@ -109,10 +115,26 @@ function App() {
                                         <FilterForm
                                           columnKey={column.key}
                                           data={clientData}
-                                          onSubmit={(filteredData: any[]) => {
+                                          onSubmit={(
+                                            filteredData: Array<any>,
+                                            filterValue: { keyword: string }
+                                          ) => {
                                             if (filteredData.length === 0) {
                                               alert("데이터가 없습니다.");
                                             } else {
+                                              setAppliedFilters(
+                                                (
+                                                  prev: Array<AppliedFilter>
+                                                ) => {
+                                                  prev.push({
+                                                    column,
+                                                    filterCondition: "contain",
+                                                    filterValue:
+                                                      filterValue.keyword,
+                                                  });
+                                                  return prev;
+                                                }
+                                              );
                                               setClientData(filteredData);
                                             }
                                             handleClose();
@@ -145,7 +167,7 @@ export default App;
 interface FilterFormProps {
   columnKey: string;
   data: any[];
-  onSubmit: (filteredData: any[]) => void;
+  onSubmit: (filteredData: any[], values: any) => void;
 }
 
 const FilterForm: FC<FilterFormProps> = ({ columnKey, data, onSubmit }) => {
@@ -165,13 +187,15 @@ const FilterForm: FC<FilterFormProps> = ({ columnKey, data, onSubmit }) => {
     <Form
       form={filterForm}
       onSubmit={(values) => {
-        const filteredData = data.filter((item) => {
-          const typedKey = columnKey as keyof TestData;
-          return String(item[typedKey])
-            .toLowerCase()
-            .includes(values.keyword.toLowerCase());
-        });
-        onSubmit(filteredData);
+        if (values.keyword) {
+          const filteredData = data.filter((item) => {
+            const typedKey = columnKey as keyof TestData;
+            return String(item[typedKey])
+              .toLowerCase()
+              .includes(values.keyword.toLowerCase());
+          });
+          onSubmit(filteredData, values);
+        }
       }}
     >
       <Form.Item fieldKey="keyword">
