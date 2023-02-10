@@ -6,7 +6,6 @@ const { movePositionIntoViewport } = WindowUtility;
 
 const Popup: FC<PopupProps> = ({
   triggerRect,
-  triggerPosition,
   positionOption,
   children,
   handleClose,
@@ -32,11 +31,14 @@ const Popup: FC<PopupProps> = ({
       movePositionIntoViewport(
         { width: window.innerWidth, height: window.innerHeight },
         current,
-        triggerPosition,
+        {
+          top: window.scrollY + triggerRect.top,
+          left: window.scrollX + triggerRect.left,
+        },
         positionOption
       );
     }
-  }, [triggerPosition, triggerRect, positionOption]);
+  }, [triggerRect, positionOption]);
 
   return (
     <Fragment>

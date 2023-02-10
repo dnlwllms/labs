@@ -38,8 +38,7 @@ export namespace WindowUtility {
     let elementRect = element.getBoundingClientRect();
 
     if (getIsWidthOver(viewport.width, elementRect)) {
-      element.style.left = `unset`;
-      element.style.right = `${options?.rightMargin || 0}px`;
+      element.style.left = `${position.left - (options?.rightMargin || 0)}px`;
     } else {
       element.style.left = `${position.left + (options?.leftMargin || 0)}px`;
     }

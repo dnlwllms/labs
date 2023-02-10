@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "license": "MIT",
   "devDependencies": {
-    "@dnlwllms/dialog": "^1.1.2",
-    "@dnlwllms/form": "^1.2.3",
-    "@dnlwllms/util": "^1.3.9",
+    "@dnlwllms/dialog": "^1.4.1",
+    "@dnlwllms/form": "^1.3.0",
+    "@dnlwllms/util": "^2.1.7",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",

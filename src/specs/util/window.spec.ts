@@ -14,9 +14,9 @@ describe("Window Viewport Test", () => {
   const width = getRandomNumber(300, 500),
     height = getRandomNumber(300, 500),
     top = getRandomNumber(0, viewport.height),
-    bottom = viewport.height - top,
+    bottom = viewport.height - top - height,
     left = getRandomNumber(0, viewport.width),
-    right = viewport.width - left;
+    right = viewport.width - left - width;
   const rect: DOMRect = {
     width,
     height,

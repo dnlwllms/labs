@@ -1,5 +1,5 @@
 import { FC, PropsWithChildren, ReactElement } from "react";
-import { MovePositionOption, Position } from "@dnlwllms/util";
+import { MovePositionOption } from "@dnlwllms/util";
 
 export type InternalDialog = {
   Trigger: FC<DialogTriggerProps>;
@@ -21,7 +21,6 @@ export interface DialogTriggerProps {
 export interface DialogBodyProps {
   children: (renderProps: {
     triggerRect?: DOMRect;
-    triggerPosition: Position;
     handleClose: () => void;
   }) => ReactElement;
 }
@@ -33,10 +32,6 @@ export interface DialogBodyComponent
 export interface PopupProps {
   children: ReactElement;
   triggerRect?: DOMRect;
-  /**
-   * 문서에서 실제 위치(rect는 viewport기준, position은 문서 크기 기준)
-   */
-  triggerPosition: Position;
   positionOption?: MovePositionOption;
   handleClose: () => void;
 }

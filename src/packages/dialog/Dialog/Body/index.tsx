@@ -5,18 +5,12 @@ import { DialogContext } from "../context";
 import Popup from "./Popup";
 
 const Body: DialogBodyComponent = ({ children }) => {
-  const {
-    isOpen,
-    triggerRect,
-    handleClose,
-    triggerPosition: position,
-  } = useContext(DialogContext);
+  const { isOpen, triggerRect, handleClose } = useContext(DialogContext);
 
   return isOpen
     ? createPortal(
         children({
-          triggerRect: triggerRect,
-          triggerPosition: position,
+          triggerRect,
           handleClose,
         }),
         document.body
