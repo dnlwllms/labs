@@ -7,7 +7,7 @@ import { Input } from "./Input";
 const Item: FormItemComponent = ({ children, fieldKey, as }) => {
   const [isFocused, setIsFocused] = useState(false);
 
-  const handleFocus = () => {
+  const handleFocus = (): void => {
     setIsFocused(true);
   };
 

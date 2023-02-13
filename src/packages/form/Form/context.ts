@@ -1,7 +1,7 @@
 import { createContext } from "react";
 import { UseFormReturn } from "../types";
 
-export const formContextDefaultValue = {
+export const formContextDefaultValue: UseFormReturn = {
   values: {},
   errors: {},
   isSubmited: false,

@@ -12,9 +12,9 @@ const ErrorMessage: FC<ErrorMessageProps> = ({ as, visible }) => {
     isFocused
   );
 
-  const message =
-    (visible === undefined ? defaultVisible : visible) &&
-    form.errors[fieldKey]?.[0];
+  const message: string = (visible === undefined ? defaultVisible : visible)
+    ? form.errors[fieldKey]?.[0] || ""
+    : "";
 
   if (as) {
     return cloneElement(as, { children: message });

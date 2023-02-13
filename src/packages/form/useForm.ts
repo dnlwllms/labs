@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { FormError, UseFormParams, UseFormReturn } from "./types";
+import {
+  FormError,
+  FormValidation,
+  UseFormParams,
+  UseFormReturn,
+} from "./types";
 
 const useForm = <T extends Record<string, unknown>>({
   initialValues,
@@ -8,7 +13,7 @@ const useForm = <T extends Record<string, unknown>>({
   const [values, setValues] = useState<T>(initialValues);
   const [errors, setErrors] = useState<FormError<T>>({});
 
-  const [validationState] = useState(validation);
+  const [validationState] = useState<FormValidation<T> | undefined>(validation);
 
   // Submit 시도 했는지 여부 (mount시 error on/off 핸들링과 같은 경우 사용)
   const [isSubmited, setIsSubmited] = useState(false);
@@ -16,8 +21,8 @@ const useForm = <T extends Record<string, unknown>>({
   // Validation Effect
   useEffect(() => {
     if (validationState) {
-      const invalidItems = validationState.filter((item) => {
-        const instance = new RegExp(item.regExp);
+      const invalidItems: FormValidation<T> = validationState.filter((item) => {
+        const instance: RegExp = new RegExp(item.regExp);
 
         return !instance.test(String(values[item.key]));
       });
@@ -34,7 +39,7 @@ const useForm = <T extends Record<string, unknown>>({
     }
   }, [validationState, values]);
 
-  const handleSubmit = (onSubmit: (values: T) => void) => {
+  const handleSubmit = (onSubmit: (values: T) => void): void => {
     setIsSubmited(true);
 
     if (Object.values(errors).length) {
@@ -47,7 +52,7 @@ const useForm = <T extends Record<string, unknown>>({
     }
   };
 
-  const handleValue = (key: keyof T, value: unknown) => {
+  const handleValue = (key: keyof T, value: unknown): void => {
     setValues({
       ...values,
       [key]: value,
