@@ -34,7 +34,9 @@
     "build:dialog": "cd src/packages/dialog && rm -rf dist && tsc && tsc -p tsconfig-cjs.json",
     "publish:dialog": "cd src/packages/dialog && npm publish",
     "build:table": "cd src/packages/table && rm -rf dist && tsc && tsc -p tsconfig-cjs.json",
-    "publish:table": "cd src/packages/table && npm publish"
+    "publish:table": "cd src/packages/table && npm publish",
+    "build:raise-number": "cd src/packages/raise-number && rm -rf dist && tsc && tsc -p tsconfig-cjs.json",
+    "publish:raise-number": "cd src/packages/raise-number && npm publish"
   },
   "eslintConfig": {
     "extends": [
