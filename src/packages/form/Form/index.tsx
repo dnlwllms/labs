@@ -9,9 +9,12 @@ const Form: FormComponent = ({
   form = formContextDefaultValue,
   onSubmit,
 }) => {
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent): void => {
     e.preventDefault();
-    form.handleSubmit(onSubmit);
+
+    if (onSubmit) {
+      form.handleSubmit(onSubmit);
+    }
   };
 
   return (

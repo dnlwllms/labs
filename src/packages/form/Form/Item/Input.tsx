@@ -8,9 +8,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     const { fieldKey: contextFieldKey, handleFocused } =
       useContext(FormItemContext);
 
-    const fieldKey = propsFieldKey || contextFieldKey;
+    const fieldKey: string = propsFieldKey || contextFieldKey;
 
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
       if (fieldKey) {
         handleValue(fieldKey, e.target.value);
       }
