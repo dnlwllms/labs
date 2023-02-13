@@ -2,7 +2,6 @@ import { FC, useEffect, useRef } from "react";
 import Form, { useForm } from "./packages/form";
 import { NumberUtility, StringUtility, DateUtility } from "./packages/util";
 import Table, { AppliedFilter, Filter, TableColumn } from "./packages/table";
-import RaiseNumber from "./packages/raise-number";
 
 const { getRandomNumber } = NumberUtility;
 const { getRandomWord, getStringParagragh } = StringUtility;
@@ -76,8 +75,7 @@ function App() {
 
   return (
     <div>
-      <RaiseNumber value={11840000} />
-      {/* <Table columns={columns} data={data}>
+      <Table columns={columns} data={data}>
         {({
           clientData,
           entryColumns,
@@ -159,7 +157,7 @@ function App() {
             </>
           );
         }}
-      </Table> */}
+      </Table>
     </div>
   );
 }
