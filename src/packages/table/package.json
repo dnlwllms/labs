@@ -1,6 +1,6 @@
 {
   "name": "@dnlwllms/table",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Table 컴포넌트",
   "files": [
     "dist"
