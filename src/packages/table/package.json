@@ -16,7 +16,7 @@
     "react-dom": ">16.0.0"
   },
   "dependencies": {
-    "@dnlwllms/dialog": "^1.5.1",
+    "@dnlwllms/dialog": "^1.7.0",
     "@dnlwllms/form": "^1.5.0",
     "@dnlwllms/util": "^2.2.0"
   },
