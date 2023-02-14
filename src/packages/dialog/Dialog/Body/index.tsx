@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useCallback, useContext, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { DialogBodyComponent } from "../../types";
 import { DialogContext } from "../context";
@@ -6,6 +6,28 @@ import Popup from "./Popup";
 
 const Body: DialogBodyComponent = ({ children }) => {
   const { isOpen, triggerRect, handleClose } = useContext(DialogContext);
+
+  const handleKeydown = useCallback(
+    (e: KeyboardEvent) => {
+      console.log(e.key);
+      switch (e.key) {
+        case "Escape":
+          handleClose();
+          return;
+      }
+    },
+    [handleClose]
+  );
+
+  // Keydown Side Effect
+  useEffect(() => {
+    console.log("?!");
+    window.addEventListener("keydown", handleKeydown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeydown);
+    };
+  }, [handleKeydown]);
 
   return isOpen
     ? createPortal(
