@@ -1,6 +1,6 @@
 {
   "name": "@dnlwllms/dialog",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "Select, Modal 등 Popup 관련 컴포넌트들의 베이스 컴포넌트",
   "files": [
     "dist"
