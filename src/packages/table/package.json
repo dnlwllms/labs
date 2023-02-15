@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@dnlwllms/dialog": "^1.7.0",
-    "@dnlwllms/form": "^1.5.0",
+    "@dnlwllms/form": "^1.7.0",
     "@dnlwllms/util": "^2.2.0"
   },
   "publishConfig": {
