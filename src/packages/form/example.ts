@@ -75,6 +75,11 @@ const regExpExample = {
    * 전화번호
    */
   tel: /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/,
+
+  /**
+   * 입력 필수
+   */
+  required: /^(?!\s*$).+/,
 };
 
 export { regExpExample };

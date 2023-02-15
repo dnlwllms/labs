@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "devDependencies": {
-    "@dnlwllms/dialog": "^1.5.1",
-    "@dnlwllms/form": "^1.5.0",
+    "@dnlwllms/dialog": "^1.7.0",
+    "@dnlwllms/form": "^1.7.0",
     "@dnlwllms/util": "^2.3.0",
     "@dnlwllms/table": "^0.0.5",
     "@testing-library/jest-dom": "^5.16.5",
