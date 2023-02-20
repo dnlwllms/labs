@@ -13,7 +13,6 @@ const Body: FC<TableBodyProps> = ({ children }) => {
             tableContext.clientData[index]?.[tableContext.asKey || "id"] ||
             index;
 
-          console.log(key);
           return (
             <tr key={key}>
               {row.map(([key, value]) => {
