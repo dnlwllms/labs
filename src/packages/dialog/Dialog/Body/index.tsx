@@ -9,7 +9,6 @@ const Body: DialogBodyComponent = ({ children }) => {
 
   const handleKeydown = useCallback(
     (e: KeyboardEvent) => {
-      console.log(e.key);
       switch (e.key) {
         case "Escape":
           handleClose();
