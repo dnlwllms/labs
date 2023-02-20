@@ -1,9 +1,7 @@
-import { MovePositionOption } from "@dnlwllms/util";
 import {
   Dispatch,
   FC,
   PropsWithChildren,
-  ReactElement,
   ReactNode,
   SetStateAction,
 } from "react";
@@ -13,12 +11,6 @@ import {
  * 추후 필터 및 엑셀 연동을 하기 위한 컬럼의 데이터 타입
  */
 export type ColumnDataType = "string" | "date" | "number";
-
-/**
- * TODO
- * 테이블, 필터 연동 시 필터 조건에 관련된 타입
- */
-export type FilterCondition = "same" | "contain" | "more-then" | "less-then";
 
 /**
  * 최상위 테이블 컴포넌트에 props로 전달되는 column의 객체 타입
@@ -106,14 +98,6 @@ export interface TableContextType {
    * output data (data 객체를 클라이언트에서 사용하기 좋게 가공된 클라이언트용 data)
    */
   entryData: string[][][];
-  /**
-   * 현재 적용된 필터 목록
-   */
-  appliedFilters: Array<AppliedFilter>;
-  /**
-   * 필터 적용 시 사용하는 dispatch
-   */
-  setAppliedFilters: Dispatch<SetStateAction<Array<AppliedFilter>>>;
 }
 
 /**
@@ -129,38 +113,3 @@ export interface TableComponent extends FC<TableProps>, InternalTable {}
 export interface TableHeadProps extends PropsWithChildren {}
 
 export interface TableBodyProps extends PropsWithChildren {}
-
-/**
- * Filter 내장 컴포넌트
- */
-export interface InternalFilter {
-  Button: FC<FilterButtonProps>;
-  Popup: FC<FilterPopupProps>;
-}
-
-export interface FilterComponent extends FC<FilterProps>, InternalFilter {}
-
-export interface FilterProps extends PropsWithChildren {}
-
-export interface FilterButtonProps {
-  as?: ReactElement;
-}
-
-export interface FilterPopupProps {
-  /**
-   *
-   * @param renderProps 필터에서 닫기 기능등, dialog 기능을 사용하기 위함
-   * @returns
-   */
-  children: (renderProps: { handleClose: () => void }) => ReactElement;
-  positionOption?: MovePositionOption;
-}
-
-/**
- * 현재 적용된 필터 객체 타입
- */
-export interface AppliedFilter {
-  filterCondition: FilterCondition;
-  column: TableColumn;
-  filterValue: string;
-}

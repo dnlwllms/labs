@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { getEntryColumns, getEntryDataBindingColumns } from "./helper";
-import { FilterCondition, TableColumn, TableComponent } from "../types";
+import { TableColumn, TableComponent } from "../types";
 import { TableContext } from "./context";
 
 import Head from "./Head";
@@ -19,16 +19,6 @@ const Table: TableComponent = ({ columns, data, children }) => {
   // 클라이언트에서 쉽게 사용하기 위해 entry 스타일로 변환한 데이터
   const entryData = getEntryDataBindingColumns(columns, clientData);
 
-  // --> Filter 관련 hooks
-  // 현재 적용된 필터 데이터
-  const [appliedFilters, setAppliedFilters] = useState<
-    Array<{
-      filterCondition: FilterCondition;
-      column: TableColumn;
-      filterValue: string;
-    }>
-  >([]);
-
   const contextValue = {
     columns,
     data,
@@ -36,8 +26,6 @@ const Table: TableComponent = ({ columns, data, children }) => {
     setClientData,
     entryColumns,
     entryData,
-    appliedFilters,
-    setAppliedFilters,
   };
 
   return (

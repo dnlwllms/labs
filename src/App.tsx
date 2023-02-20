@@ -1,7 +1,8 @@
 import { FC, useEffect, useRef } from "react";
 import Form, { useForm } from "./packages/form";
 import { NumberUtility, StringUtility, DateUtility } from "./packages/util";
-import Table, { AppliedFilter, Filter, TableColumn } from "./packages/table";
+import Table, { TableColumn } from "./packages/table";
+import Dialog from "./packages/dialog";
 
 const { getRandomNumber } = NumberUtility;
 const { getRandomWord, getStringParagragh } = StringUtility;
@@ -73,78 +74,74 @@ function App() {
     };
   });
 
+  const handleSort = (columnKey: string) => {};
+
   return (
     <div>
       <Table columns={columns} data={data}>
-        {({
-          clientData,
-          entryColumns,
-          appliedFilters,
-          setClientData,
-          setAppliedFilters,
-        }) => {
+        {({ clientData, entryColumns, setClientData }) => {
           return (
             <>
               <Table.Head>
                 {entryColumns.map((row, rowIndex) => {
+                  const isLast = rowIndex === entryColumns.length - 1;
                   return (
                     <tr key={row[rowIndex].key}>
                       {row.map((column) => {
                         return (
-                          <th key={column.key} colSpan={column.colSpan}>
+                          <th
+                            key={column.key}
+                            colSpan={column.colSpan}
+                            onClick={
+                              isLast ? () => handleSort(column.key) : undefined
+                            }
+                          >
                             {column.title}
-                            {rowIndex === entryColumns.length - 1 && (
-                              <Filter>
-                                <Filter.Button />
-                                <Filter.Popup
-                                  positionOption={{
-                                    rightMargin: 12,
-                                  }}
-                                >
-                                  {({ handleClose }) => {
+                            {isLast && (
+                              <Dialog>
+                                <Dialog.Trigger>
+                                  <button>filter</button>
+                                </Dialog.Trigger>
+                                <Dialog.Body>
+                                  {({ handleClose, triggerRect }) => {
                                     return (
-                                      <div
-                                        style={{
-                                          whiteSpace: "nowrap",
-                                          background: "white",
-                                          padding: 20,
-                                          borderRadius: 10,
-                                          border: "1px solid gray",
+                                      <Dialog.Body.Popup
+                                        triggerRect={triggerRect}
+                                        positionOption={{
+                                          topMargin: triggerRect?.height,
                                         }}
+                                        handleClose={handleClose}
                                       >
-                                        <FilterForm
-                                          columnKey={column.key}
-                                          data={clientData}
-                                          onSubmit={(
-                                            filteredData: Array<any>,
-                                            filterValue: { keyword: string }
-                                          ) => {
-                                            if (filteredData.length === 0) {
-                                              alert("데이터가 없습니다.");
-                                            } else {
-                                              setAppliedFilters(
-                                                (
-                                                  prev: Array<AppliedFilter>
-                                                ) => {
-                                                  prev.push({
-                                                    column,
-                                                    filterCondition: "contain",
-                                                    filterValue:
-                                                      filterValue.keyword,
-                                                  });
-                                                  return prev;
-                                                }
-                                              );
-                                              setClientData(filteredData);
-                                            }
-                                            handleClose();
+                                        <div
+                                          style={{
+                                            whiteSpace: "nowrap",
+                                            background: "white",
+                                            padding: 20,
+                                            borderRadius: 10,
+                                            border: "1px solid gray",
                                           }}
-                                        />
-                                      </div>
+                                        >
+                                          <FilterForm
+                                            columnKey={column.key}
+                                            data={clientData}
+                                            onSubmit={(
+                                              filteredData: Array<any>,
+                                              filterValue: { keyword: string }
+                                            ) => {
+                                              if (filteredData.length === 0) {
+                                                alert("데이터가 없습니다.");
+                                              } else {
+                                                setClientData(filteredData);
+                                              }
+                                              handleClose();
+                                            }}
+                                          />
+                                        </div>
+                                      </Dialog.Body.Popup>
                                     );
                                   }}
-                                </Filter.Popup>
-                              </Filter>
+                                </Dialog.Body>
+                              </Dialog>
                             )}
                           </th>
                         );
