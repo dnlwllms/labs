@@ -40,12 +40,14 @@ export const getEntryColumns = (
   const add = (children: Array<TableColumn>, depth = 0) => {
     entryColumns[depth] = entryColumns[depth] || [];
     children.forEach((column) => {
-      entryColumns[depth].push({
-        key: column.key,
-        title: column.title,
-        width: column.width,
-        colSpan: getColSpanByColumn(column),
-      });
+      if (!column.isHide) {
+        entryColumns[depth].push({
+          key: column.key,
+          title: column.title,
+          width: column.width,
+          colSpan: getColSpanByColumn(column),
+        });
+      }
       if (column.children) {
         add(column.children, depth + 1);
       }
@@ -75,7 +77,9 @@ export const getLastDepthColumnKeys = (
       if (column.children) {
         add(column.children);
       } else {
-        keys.push(column.key);
+        if (!column.isHide) {
+          keys.push(column.key);
+        }
       }
     });
   };
@@ -99,12 +103,11 @@ export const getEntryDataBindingColumns = <T extends any>(
   const columnKeys = getLastDepthColumnKeys(columns);
   const entryData: Array<Array<Array<string>>> = data.map(() => []);
   data.forEach((row, index) => {
-    entryData[index][0] = [index.toString()];
     Object.entries(row as object).forEach(([key, value]) => {
       const columnIndex = columnKeys.findIndex(
         (columnKey) => columnKey === key
       );
-      entryData[index][columnIndex + 1] = [key, value];
+      entryData[index][columnIndex] = [key, value];
     });
   });
 

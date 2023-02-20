@@ -8,10 +8,15 @@ const Body: FC<TableBodyProps> = ({ children }) => {
   return (
     <tbody>
       {children ||
-        tableContext.entryData.map((row) => {
+        tableContext.entryData.map((row, index) => {
+          const key =
+            tableContext.clientData[index]?.[tableContext.asKey || "id"] ||
+            index;
+
+          console.log(key);
           return (
-            <tr key={row[0][0]}>
-              {row.slice(1).map(([key, value]) => {
+            <tr key={key}>
+              {row.map(([key, value]) => {
                 return (
                   <td key={key} title={value.toString()}>
                     {value.toString()}
