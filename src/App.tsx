@@ -27,6 +27,7 @@ function App() {
         {
           key: "id",
           title: "아이디",
+          isHide: true,
         },
         {
           key: "name",
@@ -74,8 +75,6 @@ function App() {
     };
   });
 
-  const handleSort = (columnKey: string) => {};
-
   return (
     <div>
       <Table columns={columns} data={data}>
@@ -89,13 +88,7 @@ function App() {
                     <tr key={row[rowIndex].key}>
                       {row.map((column) => {
                         return (
-                          <th
-                            key={column.key}
-                            colSpan={column.colSpan}
-                            onClick={
-                              isLast ? () => handleSort(column.key) : undefined
-                            }
-                          >
+                          <th key={column.key} colSpan={column.colSpan}>
                             {column.title}
                             {isLast && (
                               <Dialog>

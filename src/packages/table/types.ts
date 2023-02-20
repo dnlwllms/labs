@@ -37,9 +37,9 @@ export interface TableColumn {
    */
   children?: TableColumn[];
   /**
-   * TODO 필터 옵션 관련
+   * column 표시여부
    */
-  filter?: unknown;
+  isHide?: boolean;
 }
 
 /**
@@ -68,6 +68,12 @@ export interface TableProps {
    * 서버로부터 받아오는 raw data
    */
   data: any;
+
+  /**
+   * default: id
+   * row의 key로 사용할 column name
+   */
+  asKey?: string;
 }
 
 /**
@@ -98,6 +104,12 @@ export interface TableContextType {
    * output data (data 객체를 클라이언트에서 사용하기 좋게 가공된 클라이언트용 data)
    */
   entryData: string[][][];
+
+  /**
+   * default: id
+   * row의 key로 사용할 column name
+   */
+  asKey?: string;
 }
 
 /**
