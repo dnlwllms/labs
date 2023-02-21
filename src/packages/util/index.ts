@@ -5,6 +5,7 @@ import { DateUtility } from "./DateUtility";
 import { TestUtility } from "./TestUtility";
 import { WindowUtility } from "./WindowUtility";
 import { FilterUtility } from "./FilterUtility";
+import { CSSUtility } from "./CSSUtility";
 import { UtilError } from "./UtilError";
 
 export * from "./types";
@@ -17,5 +18,6 @@ export {
   TestUtility,
   WindowUtility,
   FilterUtility,
+  CSSUtility,
   UtilError,
 };
