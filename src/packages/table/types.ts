@@ -60,10 +60,12 @@ export interface TableProps {
    * @returns {ReactNode}
    */
   children: (context: TableContextType) => ReactNode;
+
   /**
    * TableColumn 객체 타입의 배열
    */
   columns: Array<TableColumn>;
+
   /**
    * 서버로부터 받아오는 raw data
    */
@@ -74,6 +76,11 @@ export interface TableProps {
    * row의 key로 사용할 column name
    */
   asKey?: string;
+
+  /**
+   * styled component 적용 시 필요
+   */
+  className?: string;
 }
 
 /**
