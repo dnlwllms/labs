@@ -6,7 +6,13 @@ import { TableContext } from "./context";
 import Head from "./Head";
 import Body from "./Body";
 
-const Table: TableComponent = ({ columns, data, asKey, children }) => {
+const Table: TableComponent = ({
+  columns,
+  data,
+  asKey,
+  children,
+  className,
+}) => {
   // --> Column 관련 hooks
   // 클라이언트 전용 display 칼럼 (컬럼 숨기기와 같은 기능을 구현하기 위해 보이는 column과 초기값 구분)
   const [clientColumns] = useState<TableColumn[]>(columns);
@@ -35,7 +41,7 @@ const Table: TableComponent = ({ columns, data, asKey, children }) => {
 
   return (
     <TableContext.Provider value={contextValue}>
-      <table>
+      <table className={className}>
         <colgroup>
           {entryColumns[entryColumns.length - 1].map(({ key, width }) => (
             <col key={key} style={{ width }} />
