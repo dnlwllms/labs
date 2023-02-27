@@ -6,7 +6,11 @@ import Trigger from "./Trigger";
 import { Position } from "@dnlwllms/util";
 
 const Dialog: DialogComponent = ({ children }) => {
-  const [id] = useState<number>(Math.random());
+  const [id, setId] = useState<number>();
+
+  useEffect(() => {
+    setId(Math.random());
+  }, []);
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
