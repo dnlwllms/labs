@@ -5,12 +5,8 @@ import Body from "./Body";
 import Trigger from "./Trigger";
 import { Position } from "@dnlwllms/util";
 
-// 여러 개의 Dialog를 사용할 때 식별하기 위한 값으로 사용된다.(handleClose method 참고)
-let initialId = 1;
-
 const Dialog: DialogComponent = ({ children }) => {
-  // Dialog의 고유 아이디 (생성될때 마다 1씩 추가된다.)
-  const [id] = useState<number>(initialId++);
+  const [id] = useState<number>(Math.random());
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
