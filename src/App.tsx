@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import Form, { useForm } from "./packages/form";
 import { NumberUtility, StringUtility, DateUtility } from "./packages/util";
 import Table, { TableColumn } from "./packages/table";
@@ -32,14 +32,17 @@ function App() {
         {
           key: "name",
           title: "이름",
+          width: 100,
         },
         {
           key: "age",
           title: "연령",
+          width: 100,
         },
         {
           key: "gender",
           title: "성별",
+          width: 100,
         },
       ],
     },
@@ -50,14 +53,17 @@ function App() {
         {
           key: "nickname",
           title: "닉네임",
+          width: 100,
         },
         {
           key: "memo",
           title: "메모",
+          width: 100,
         },
         {
           key: "createdAt",
           title: "생성일",
+          width: 100,
         },
       ],
     },
@@ -75,13 +81,25 @@ function App() {
     };
   });
 
+  const [fixed, setFixed] = useState(false);
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      console.log(window.scrollY);
+      if (window.scrollY <= 0) {
+        setFixed(false);
+      } else {
+        setFixed(true);
+      }
+    });
+  }, []);
+
   return (
-    <div>
+    <div style={{ marginTop: 700 }}>
       <Table columns={columns} data={data}>
         {({ clientData, entryColumns, setClientData }) => {
           return (
             <>
-              <Table.Head>
+              <Table.Head fixed={fixed}>
                 {entryColumns.map((row, rowIndex) => {
                   const isLast = rowIndex === entryColumns.length - 1;
                   return (

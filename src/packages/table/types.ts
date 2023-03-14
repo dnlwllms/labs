@@ -135,6 +135,8 @@ export interface TableComponent
     InternalTable,
     TableHTMLAttributes<HTMLTableElement> {}
 
-export interface TableHeadProps extends PropsWithChildren {}
+export interface TableHeadProps extends PropsWithChildren {
+  fixed?: boolean;
+}
 
 export interface TableBodyProps extends PropsWithChildren {}
