@@ -12,14 +12,8 @@ const Popup: FC<DialogBodyPopupProps> = ({
 }) => {
   // 특정 이벤트시 Popup을 닫히게 하는 effect
   useEffect(() => {
-    window.addEventListener("wheel", handleClose);
-    window.addEventListener("touchmove", handleClose);
-    window.addEventListener("resize", handleClose);
     document.body.style.overflow = "hidden";
     return () => {
-      window.removeEventListener("scroll", handleClose);
-      window.removeEventListener("touchmove", handleClose);
-      window.removeEventListener("resize", handleClose);
       document.body.style.overflow = "";
     };
   }, [handleClose]);
@@ -29,13 +23,16 @@ const Popup: FC<DialogBodyPopupProps> = ({
   useEffect(() => {
     if (ref.current && triggerRect) {
       const current = ref.current as HTMLElement;
+      current.style.position = "fixed";
+      current.style.top = "0";
+      current.style.left = "0";
 
       movePositionIntoViewport(
         { width: window.innerWidth, height: window.innerHeight },
         current,
         {
-          top: window.scrollY + triggerRect.top,
-          left: window.scrollX + triggerRect.left,
+          top: triggerRect.top,
+          left: triggerRect.left,
         },
         positionOption
       );
@@ -54,9 +51,6 @@ const Popup: FC<DialogBodyPopupProps> = ({
         },
         style: {
           ...children.props.style,
-          position: "absolute",
-          top: 0,
-          left: 0,
         },
       })}
     </Fragment>

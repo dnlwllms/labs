@@ -1,19 +1,19 @@
-import { Position } from "@dnlwllms/util";
 import { createContext } from "react";
+import { Context } from "../types";
 
 // data-{id} 형태로 DOM에서 사용할 고유 식별자 키 이름
 export const DIALOG_DATA_ATTRIBUTE_NAME = "data-dnlwllms-dialog-id";
 
-const dialogContextDefaultValue = {
-  id: undefined as number | undefined,
+const dialogContextDefaultValue: Context = {
+  id: undefined,
   isOpen: false,
-  triggerRect: {} as DOMRect | undefined,
+  triggerRect: undefined,
   triggerPosition: {
     top: 0,
     left: 0,
-  } as Position,
+  },
   handleOpen: console.debug,
   handleClose: console.debug,
 };
 
-export const DialogContext = createContext(dialogContextDefaultValue);
+export const DialogContext = createContext<Context>(dialogContextDefaultValue);

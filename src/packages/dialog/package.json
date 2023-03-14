@@ -1,6 +1,6 @@
 {
   "name": "@dnlwllms/dialog",
-  "version": "1.8.1",
+  "version": "2.0.0",
   "description": "Select, Modal 등 Popup 관련 컴포넌트들의 베이스 컴포넌트",
   "files": [
     "dist"
@@ -16,7 +16,7 @@
     "react-dom": ">16.0.0"
   },
   "dependencies": {
-    "@dnlwllms/util": "^2.2.0"
+    "@dnlwllms/util": "^2.4.4"
   },
   "publishConfig": {
     "@dnlwllms:registry": "https://npm.pkg.github.com"
