@@ -12,10 +12,12 @@ const Head: FC<TableHeadProps> = ({ children, fixed = true }) => {
 
       if (fixed) {
         thead.style.position = "fixed";
-        thead.style.transform = `translate(${rect.x}px, ${rect.y}px)`;
+        thead.style.top = `${rect.top}px`;
+        thead.style.left = `${rect.left}px`;
       } else {
         thead.style.position = "static";
-        thead.style.transform = ``;
+        thead.style.top = `0`;
+        thead.style.left = `0`;
       }
     }
   }, [fixed]);
