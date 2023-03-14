@@ -1,15 +1,24 @@
-import { FC, useContext, useEffect, useRef } from "react";
+import { FC, useContext, useEffect, useRef, useState } from "react";
 import { TableHeadProps } from "../../types";
 import { TableContext } from "../context";
 
 const Head: FC<TableHeadProps> = ({ children, fixed = true }) => {
   const ref = useRef<HTMLTableSectionElement>(null);
 
+  const [rect, setRect] = useState<DOMRect>();
+
   useEffect(() => {
     const thead = ref.current;
+
     if (thead) {
       const rect = thead.getBoundingClientRect();
+      setRect(rect);
+    }
+  }, []);
 
+  useEffect(() => {
+    const thead = ref.current;
+    if (thead && rect) {
       if (fixed) {
         thead.style.position = "fixed";
         thead.style.top = `${rect.top}px`;
@@ -20,7 +29,7 @@ const Head: FC<TableHeadProps> = ({ children, fixed = true }) => {
         thead.style.left = `0`;
       }
     }
-  }, [fixed]);
+  }, [fixed, rect]);
 
   const tableContext = useContext(TableContext);
 
