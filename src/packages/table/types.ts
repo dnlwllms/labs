@@ -4,7 +4,10 @@ import {
   PropsWithChildren,
   ReactNode,
   SetStateAction,
+  TableHTMLAttributes,
 } from "react";
+import Body from "./Table/Body";
+import Head from "./Table/Head";
 
 /**
  * TODO
@@ -59,7 +62,7 @@ export interface TableProps {
    * @param {TableContextType} context Table 컴포넌트 내부에서 사용되는 상태
    * @returns {ReactNode}
    */
-  children: (context: TableContextType) => ReactNode;
+  children?: (context: TableContextType) => ReactNode;
 
   /**
    * TableColumn 객체 타입의 배열
@@ -123,11 +126,14 @@ export interface TableContextType {
  * Table 내장 컴포넌트
  */
 export interface InternalTable {
-  Head: FC<TableHeadProps>;
-  Body: FC<TableBodyProps>;
+  Head: typeof Head;
+  Body: typeof Body;
 }
 
-export interface TableComponent extends FC<TableProps>, InternalTable {}
+export interface TableComponent
+  extends FC<TableProps>,
+    InternalTable,
+    TableHTMLAttributes<HTMLTableElement> {}
 
 export interface TableHeadProps extends PropsWithChildren {}
 

@@ -11,7 +11,7 @@ const Table: TableComponent = ({
   data,
   asKey,
   children,
-  className,
+  ...props
 }) => {
   // --> Column 관련 hooks
   // 클라이언트 전용 display 칼럼 (컬럼 숨기기와 같은 기능을 구현하기 위해 보이는 column과 초기값 구분)
@@ -41,13 +41,20 @@ const Table: TableComponent = ({
 
   return (
     <TableContext.Provider value={contextValue}>
-      <table className={className}>
+      <table {...props}>
         <colgroup>
           {entryColumns[entryColumns.length - 1].map(({ key, width }) => (
             <col key={key} style={{ width }} />
           ))}
         </colgroup>
-        {children(contextValue)}
+        {children ? (
+          children(contextValue)
+        ) : (
+          <>
+            <Table.Head />
+            <Table.Body />
+          </>
+        )}
       </table>
     </TableContext.Provider>
   );
