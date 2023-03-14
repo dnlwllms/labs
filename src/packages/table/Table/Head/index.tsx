@@ -1,40 +1,12 @@
-import { FC, useContext, useEffect, useRef, useState } from "react";
+import { FC, useContext } from "react";
 import { TableHeadProps } from "../../types";
 import { TableContext } from "../context";
 
-const Head: FC<TableHeadProps> = ({ children, fixed = true }) => {
-  const ref = useRef<HTMLTableSectionElement>(null);
-
-  const [rect, setRect] = useState<DOMRect>();
-
-  useEffect(() => {
-    const thead = ref.current;
-
-    if (thead) {
-      const rect = thead.getBoundingClientRect();
-      setRect(rect);
-    }
-  }, []);
-
-  useEffect(() => {
-    const thead = ref.current;
-    if (thead && rect) {
-      if (fixed) {
-        thead.style.position = "fixed";
-        thead.style.top = `${rect.top}px`;
-        thead.style.left = `${rect.left}px`;
-      } else {
-        thead.style.position = "static";
-        thead.style.top = `0`;
-        thead.style.left = `0`;
-      }
-    }
-  }, [fixed, rect]);
-
+const Head: FC<TableHeadProps> = ({ children }) => {
   const tableContext = useContext(TableContext);
 
   return (
-    <thead ref={ref}>
+    <thead>
       {children ||
         tableContext.entryColumns.map((row, rowIndex) => {
           return (
