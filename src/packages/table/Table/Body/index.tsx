@@ -2,11 +2,11 @@ import { FC, useContext } from "react";
 import { TableBodyProps } from "../../types";
 import { TableContext } from "../context";
 
-const Body: FC<TableBodyProps> = ({ children }) => {
+const Body: FC<TableBodyProps> = ({ children, ...props }) => {
   const tableContext = useContext(TableContext);
 
   return (
-    <tbody>
+    <tbody {...props}>
       {children ||
         tableContext.entryData.map((row, index) => {
           const key =

@@ -1,6 +1,7 @@
 import {
   Dispatch,
   FC,
+  HTMLAttributes,
   PropsWithChildren,
   ReactNode,
   SetStateAction,
@@ -139,4 +140,6 @@ export interface TableHeadProps extends PropsWithChildren {
   fixed?: boolean;
 }
 
-export interface TableBodyProps extends PropsWithChildren {}
+export interface TableBodyProps
+  extends PropsWithChildren,
+    HTMLAttributes<HTMLTableSectionElement> {}

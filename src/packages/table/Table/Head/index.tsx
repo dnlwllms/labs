@@ -12,7 +12,7 @@ const Head: FC<TableHeadProps> = ({ children, fixed = true }) => {
 
       if (fixed) {
         thead.style.position = "fixed";
-        thead.style.transform = `translate(${rect.x}, ${rect.y})`;
+        thead.style.transform = `translate(${rect.x}px, ${rect.y}px)`;
       } else {
         thead.style.position = "static";
         thead.style.transform = ``;
@@ -26,7 +26,6 @@ const Head: FC<TableHeadProps> = ({ children, fixed = true }) => {
     <thead ref={ref}>
       {children ||
         tableContext.entryColumns.map((row, rowIndex) => {
-          console.log(row[rowIndex]);
           return (
             <tr key={row[rowIndex].key}>
               {row.map((column) => {
