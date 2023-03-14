@@ -1,5 +1,14 @@
-import { FC, PropsWithChildren, ReactElement } from "react";
-import { MovePositionOption } from "@dnlwllms/util";
+import { FC, ReactElement } from "react";
+import { MovePositionOption, Position } from "@dnlwllms/util";
+
+export interface Context {
+  id?: number;
+  isOpen: boolean;
+  triggerRect?: DOMRect;
+  triggerPosition: Position;
+  handleOpen: (e?: MouseEvent) => void;
+  handleClose: (e?: MouseEvent) => void;
+}
 
 // Dialog 내장 컴포넌트
 export type InternalDialog = {
@@ -13,7 +22,9 @@ export type InternalDialogBody = {
 };
 
 // Dialog 컴포넌트와 props 인터페이스
-export interface DialogProps extends PropsWithChildren {}
+export interface DialogProps {
+  children: (context: Context) => ReactElement;
+}
 export interface DialogComponent extends FC<DialogProps>, InternalDialog {}
 
 // Dialog.Trigger props 인터페이스
@@ -23,10 +34,7 @@ export interface DialogTriggerProps {
 
 // Dialog.Body 컴포넌트와 props 인터페이스
 export interface DialogBodyProps {
-  children: (renderProps: {
-    triggerRect?: DOMRect;
-    handleClose: () => void;
-  }) => ReactElement;
+  children: ReactElement;
 }
 export interface DialogBodyComponent
   extends FC<DialogBodyProps>,

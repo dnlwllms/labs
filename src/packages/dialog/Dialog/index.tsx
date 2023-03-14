@@ -27,7 +27,7 @@ const Dialog: DialogComponent = ({ children }) => {
   window click시 close Effect를 무효화 시키기 위한 로직이다.
   (stopPropagation 사용시 issue 있음) */
   const handleClose = useCallback(
-    (e: MouseEvent) => {
+    (e?: MouseEvent) => {
       const isTarget = e?.composedPath().some((target) => {
         const element = target as HTMLElement;
         const isElement = !!element.getAttribute;
@@ -59,8 +59,8 @@ const Dialog: DialogComponent = ({ children }) => {
   }, [handleClose, id]);
 
   // Toggle handler (클릭 시 Trigger의 위치, 좌표 정보를 상태에 저장한다.)
-  const handleOpen = (e: React.MouseEvent) => {
-    const target = e.currentTarget as HTMLElement;
+  const handleOpen = (e?: MouseEvent) => {
+    const target = e?.currentTarget as HTMLElement;
 
     if (target) {
       setTriggerRect(target.getBoundingClientRect());
@@ -73,18 +73,17 @@ const Dialog: DialogComponent = ({ children }) => {
     setIsOpen(!isOpen);
   };
 
+  const contextValue = {
+    id,
+    isOpen,
+    triggerPosition,
+    triggerRect,
+    handleOpen,
+    handleClose,
+  };
   return (
-    <DialogContext.Provider
-      value={{
-        id,
-        isOpen,
-        triggerPosition,
-        triggerRect,
-        handleOpen,
-        handleClose,
-      }}
-    >
-      {children}
+    <DialogContext.Provider value={contextValue}>
+      {children(contextValue)}
     </DialogContext.Provider>
   );
 };

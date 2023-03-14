@@ -5,17 +5,17 @@ import { DialogContext } from "../context";
 import Popup from "./Popup";
 
 const Body: DialogBodyComponent = ({ children }) => {
-  const { isOpen, triggerRect, handleClose } = useContext(DialogContext);
+  const context = useContext(DialogContext);
 
   const handleKeydown = useCallback(
     (e: KeyboardEvent) => {
       switch (e.key) {
         case "Escape":
-          handleClose();
+          context.handleClose();
           return;
       }
     },
-    [handleClose]
+    [context]
   );
 
   // Keydown Side Effect
@@ -27,15 +27,7 @@ const Body: DialogBodyComponent = ({ children }) => {
     };
   }, [handleKeydown]);
 
-  return isOpen
-    ? createPortal(
-        children({
-          triggerRect,
-          handleClose,
-        }),
-        document.body
-      )
-    : null;
+  return context.isOpen ? createPortal(children, document.body) : null;
 };
 
 Body.Popup = Popup;
