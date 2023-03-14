@@ -13,7 +13,11 @@ const Head: FC<TableHeadProps> = ({ children }) => {
             <tr key={row[rowIndex].key}>
               {row.map((column) => {
                 return (
-                  <th key={column.key} colSpan={column.colSpan}>
+                  <th
+                    key={column.key}
+                    colSpan={column.colSpan}
+                    align={column.headerAlign}
+                  >
                     {column.title}
                   </th>
                 );

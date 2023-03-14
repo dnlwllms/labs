@@ -15,6 +15,7 @@ import Head from "./Table/Head";
  */
 export type ColumnDataType = "string" | "date" | "number";
 
+export type TableColumnAlign = "left" | "right" | "center";
 /**
  * 최상위 테이블 컴포넌트에 props로 전달되는 column의 객체 타입
  */
@@ -43,6 +44,14 @@ export interface TableColumn {
    * column 표시여부
    */
   isHide?: boolean;
+  /**
+   * 헤더 텍스트 정렬
+   */
+  headerAlign?: TableColumnAlign;
+  /**
+   * 바디 텍스트 정렬
+   */
+  bodyAlign?: TableColumnAlign;
 }
 
 /**

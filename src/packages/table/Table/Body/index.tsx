@@ -16,8 +16,15 @@ const Body: FC<TableBodyProps> = ({ children, ...props }) => {
           return (
             <tr key={key}>
               {row.map(([key, value]) => {
+                const column = tableContext.columns.find(
+                  (column) => column.key === key
+                );
                 return (
-                  <td key={key} title={value.toString()}>
+                  <td
+                    key={key}
+                    title={value.toString()}
+                    align={column?.bodyAlign}
+                  >
                     {value.toString()}
                   </td>
                 );
