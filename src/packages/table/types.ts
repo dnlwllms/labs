@@ -52,6 +52,10 @@ export interface TableColumn {
    * 바디 텍스트 정렬
    */
   bodyAlign?: TableColumnAlign;
+  /**
+   * 커스텀 렌더 옵션
+   */
+  render?: (value: any) => ReactNode;
 }
 
 /**
@@ -79,9 +83,9 @@ export interface TableProps {
   columns: Array<TableColumn>;
 
   /**
-   * 서버로부터 받아오는 raw data
+   * 초기 data
    */
-  data: any;
+  initialData: any;
 
   /**
    * default: id

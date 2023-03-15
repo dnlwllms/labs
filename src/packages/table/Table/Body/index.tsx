@@ -25,7 +25,7 @@ const Body: FC<TableBodyProps> = ({ children, ...props }) => {
                     title={value.toString()}
                     align={column?.bodyAlign}
                   >
-                    {value.toString()}
+                    {column?.render ? column.render(value) : value.toString()}
                   </td>
                 );
               })}
