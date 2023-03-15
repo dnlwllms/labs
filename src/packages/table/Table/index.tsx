@@ -8,7 +8,7 @@ import Body from "./Body";
 
 const Table: TableComponent = ({
   columns,
-  data,
+  initialData: data,
   asKey,
   children,
   ...props

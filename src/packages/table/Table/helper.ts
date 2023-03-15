@@ -42,9 +42,7 @@ export const getEntryColumns = (
     children.forEach((column) => {
       if (!column.isHide) {
         entryColumns[depth].push({
-          key: column.key,
-          title: column.title,
-          width: column.width,
+          ...column,
           colSpan: getColSpanByColumn(column),
         });
       }
